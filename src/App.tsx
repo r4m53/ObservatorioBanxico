@@ -7,7 +7,7 @@ import {
 import { Close, Download, Edit, RestartAlt, Timeline } from "@mui/icons-material";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip as ChartTooltip, XAxis, YAxis, Legend } from "recharts";
 import { motion } from "framer-motion";
-import { loadData, evaluationFor, nearestBoard } from "./data";
+import { average, evaluationFor, evaluationTotal, loadData, nearestBoard } from "./data";
 import { useRadarStore } from "./store";
 import { orange } from "./theme";
 import type { Evaluation, Person } from "./types";
@@ -22,6 +22,15 @@ const modeMeta = {
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("es-MX", { month: "short", year: "numeric", timeZone: "UTC" });
 }
+
+function formatScore(value: number | null | undefined) {
+  return value == null || !Number.isFinite(value) ? "N/D" : value.toFixed(1);
+}
+
+const tooltipFormatter = (value: unknown) => {
+  if (Array.isArray(value)) return value.map((item) => typeof item === "number" ? item.toFixed(1) : String(item)).join(", ");
+  return typeof value === "number" ? value.toFixed(1) : String(value ?? "N/D");
+};
 
 export default function App() {
   const { data, setData, mode, setMode, selectedBoards, selectBoard, activeTab, setActiveTab, edits, editScore, reset } = useRadarStore();
@@ -87,33 +96,35 @@ function Comparator({ onPerson, onScore }: { onPerson: (p: Person)=>void; onScor
 
 function BoardTable({date,onPerson,onScore,mode,edits}:{date:string;onPerson:(p:Person)=>void;onScore:(e:Evaluation,c:string)=>void;mode:"official"|"heath"|"custom";edits:Record<string,number>}) {
   const data=useRadarStore(s=>s.data)!; const board=nearestBoard(data,date);
-  const rows=board.members.map(name=>({name,person:data.people.find(p=>p.name===name),ev:evaluationFor(data,date,name,mode)})).filter(r=>r.ev);
-  const averages=data.criteria.map(c=>rows.reduce((s,r)=>s+(edits[`${r.ev!.id}:${c.id}`]??r.ev!.scores[c.id]??0),0)/rows.length);
-  const avgTotal=averages.reduce((a,b)=>a+b,0)/averages.length;
+  if (!board) return <Paper className="board-panel" sx={{p:3}}><Typography color="warning.main">Información insuficiente: no existe una composición de Junta vigente para {formatDate(date)}.</Typography></Paper>;
+  const rows=board.members.map(name=>({name,person:data.people.find(p=>p.name===name),ev:evaluationFor(data,date,name,mode)}));
+  const averages=data.criteria.map(c=>average(rows.map(r=>r.ev ? edits[`${r.ev.id}:${c.id}`]??r.ev.scores[c.id] : null)));
+  const avgTotal=average(rows.map(r=>r.ev ? evaluationTotal(data,r.ev,edits) : null));
   return <Paper className="board-panel"><Box className="board-header"><Typography variant="overline">JUNTA DE GOBIERNO</Typography><Typography variant="h5">{formatDate(date)}</Typography><Typography color="text.secondary">{board.governor}</Typography></Box>
     <TableContainer><Table size="small" stickyHeader><TableHead><TableRow><TableCell>Integrante</TableCell><TableCell align="right">Total</TableCell>{data.criteria.map(c=><Tooltip title={c.name} key={c.id}><TableCell align="right">{c.short}</TableCell></Tooltip>)}</TableRow></TableHead>
-      <TableBody>{rows.map(({name,person,ev})=>{const vals=data.criteria.map(c=>edits[`${ev!.id}:${c.id}`]??ev!.scores[c.id]??0);const total=vals.reduce((a,b)=>a+b,0)/vals.length;return <TableRow key={name} hover><TableCell><Button className="person-link" onClick={()=>person&&onPerson(person)}>{name}</Button><small>{name===board.governor?"Gobernador":"Subgobernador"}</small></TableCell><TableCell align="right" className="total-cell">{total.toFixed(2)}</TableCell>{data.criteria.map((c,i)=><TableCell key={c.id} align="right" className="score-cell" onClick={()=>onScore(ev!,c.id)}>{vals[i].toFixed(1)}</TableCell>)}</TableRow>})}
-      <TableRow className="average-row"><TableCell>PROMEDIO</TableCell><TableCell align="right">{avgTotal.toFixed(2)}</TableCell>{averages.map((x,i)=><TableCell key={i} align="right">{x.toFixed(1)}</TableCell>)}</TableRow></TableBody>
+      <TableBody>{rows.map(({name,person,ev})=>{const vals=data.criteria.map(c=>ev ? edits[`${ev.id}:${c.id}`]??ev.scores[c.id] : null);const total=ev ? evaluationTotal(data,ev,edits) : null;return <TableRow key={name} hover><TableCell><Button className="person-link" onClick={()=>person&&onPerson(person)}>{name}</Button><small>{name===board.governor?"Gobernador":"Subgobernador"}</small>{!ev&&<small>Información insuficiente para este origen</small>}</TableCell><TableCell align="right" className="total-cell">{formatScore(total)}</TableCell>{data.criteria.map((c,i)=><TableCell key={c.id} align="right" className={vals[i]==null?"":"score-cell"} onClick={()=>ev&&vals[i]!=null&&onScore(ev,c.id)}>{formatScore(vals[i])}</TableCell>)}</TableRow>})}
+      <TableRow className="average-row"><TableCell>PROMEDIO</TableCell><TableCell align="right">{formatScore(avgTotal)}</TableCell>{averages.map((x,i)=><TableCell key={i} align="right">{formatScore(x)}</TableCell>)}</TableRow></TableBody>
     </Table></TableContainer></Paper>;
 }
 
 function HistoricalChart() {
   const {data,mode,edits,selectBoard}=useRadarStore(); if(!data)return null;
-  const series=useMemo(()=>data.boards.map(board=>{const evals=board.members.map(n=>evaluationFor(data,board.date,n,mode)).filter(Boolean) as Evaluation[];const values=evals.map(e=>{const scores=data.criteria.map(c=>edits[`${e.id}:${c.id}`]??e.scores[c.id]??0);return scores.reduce((a,b)=>a+b,0)/scores.length});return {date:board.date,label:formatDate(board.date),score:values.length?values.reduce((a,b)=>a+b,0)/values.length:null}}).filter(x=>x.score),[data,mode,edits]);
+  const series=useMemo(()=>data.boards.map(board=>{const evals=board.members.map(n=>evaluationFor(data,board.date,n,mode)).filter(Boolean) as Evaluation[];const score=average(evals.map(e=>evaluationTotal(data,e,edits)));return {date:board.date,label:formatDate(board.date),score}}).filter(x=>x.score!=null),[data,mode,edits]);
   const handleClick = (state: unknown) => {
     const payload = (state as { activePayload?: Array<{ payload?: { date?: string } }> })?.activePayload?.[0]?.payload;
     if (payload?.date) selectBoard(payload.date);
   };
-  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar BM" subtitle="Haz clic en cualquier punto para llevar esa Junta al comparador."><ResponsiveContainer width="100%" height={470}><LineChart data={series} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]}/><ChartTooltip contentStyle={{background:"#171717",border:"1px solid #444"}}/><Line type="monotone" dataKey="score" name="Radar BM" stroke={orange} strokeWidth={2.5} dot={{r:3,fill:orange}} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
+  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar BM" subtitle="Haz clic en cualquier punto para llevar esa Junta al comparador."><ResponsiveContainer width="100%" height={470}><LineChart data={series} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter} contentStyle={{background:"#171717",border:"1px solid #444"}}/><Line type="monotone" dataKey="score" name="Radar BM" stroke={orange} strokeWidth={2.5} dot={{r:3,fill:orange}} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
 }
 
 function ExperienceChart() {
   const {data,selectBoard}=useRadarStore(); if(!data)return null;
   const handleClick = (state: unknown) => {
     const payload = (state as { activePayload?: Array<{ payload?: { date?: string } }> })?.activePayload?.[0]?.payload;
-    if (payload?.date) selectBoard(nearestBoard(data, payload.date).date);
+    const board = payload?.date ? nearestBoard(data, payload.date) : undefined;
+    if (board) selectBoard(board.date);
   };
-  return <ChartPanel eyebrow="CAPITAL PROFESIONAL" title="Experiencia acumulada de la Junta" subtitle="Promedios mensuales de experiencia total, monetaria y fiscal."><ResponsiveContainer width="100%" height={470}><LineChart data={data.experience} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="date" tickFormatter={formatDate} minTickGap={50}/><YAxis/><Legend/><ChartTooltip labelFormatter={(label)=>typeof label==="string"?formatDate(label):String(label??"")} contentStyle={{background:"#171717",border:"1px solid #444"}}/><Line dot={false} dataKey="total" name="Total" stroke={orange} strokeWidth={2.3}/><Line dot={false} dataKey="monetary" name="Monetaria" stroke="#4da3ff" strokeWidth={1.8}/><Line dot={false} dataKey="fiscal" name="Fiscal" stroke="#33c37d" strokeWidth={1.8}/></LineChart></ResponsiveContainer></ChartPanel>;
+  return <ChartPanel eyebrow="CAPITAL PROFESIONAL" title="Experiencia acumulada de la Junta" subtitle="Promedios mensuales de experiencia total, monetaria y fiscal."><ResponsiveContainer width="100%" height={470}><LineChart data={data.experience} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="date" tickFormatter={formatDate} minTickGap={50}/><YAxis tickFormatter={(v:number)=>v.toFixed(1)}/><Legend/><ChartTooltip formatter={tooltipFormatter} labelFormatter={(label)=>typeof label==="string"?formatDate(label):String(label??"")} contentStyle={{background:"#171717",border:"1px solid #444"}}/><Line dot={false} dataKey="total" name="Total" stroke={orange} strokeWidth={2.3}/><Line dot={false} dataKey="monetary" name="Monetaria" stroke="#4da3ff" strokeWidth={1.8}/><Line dot={false} dataKey="fiscal" name="Fiscal" stroke="#33c37d" strokeWidth={1.8}/></LineChart></ResponsiveContainer></ChartPanel>;
 }
 
 function ChartPanel({eyebrow,title,subtitle,children}:{eyebrow:string;title:string;subtitle:string;children:React.ReactNode}) {return <Paper sx={{p:{xs:2,md:4}}}><Typography variant="overline" color="primary">{eyebrow}</Typography><Typography variant="h3">{title}</Typography><Typography color="text.secondary" sx={{mb:4}}>{subtitle}</Typography>{children}</Paper>}
@@ -122,4 +133,4 @@ function Methodology(){const data=useRadarStore(s=>s.data)!;return <Stack spacin
 
 function PersonDrawer({person,onClose}:{person:Person|null;onClose:()=>void}){return <Drawer anchor="right" open={!!person} onClose={onClose} PaperProps={{sx:{width:{xs:"94vw",md:520},p:3}}}><Box sx={{display:"flex",justifyContent:"space-between"}}><Box><Typography className="brand">PERFIL</Typography><Typography variant="h4">{person?.name}</Typography></Box><IconButton onClick={onClose}><Close/></IconButton></Box><Divider sx={{my:3}}/><Typography color="text.secondary">{person?.biography}</Typography><Typography variant="h6" sx={{mt:4,mb:2}}>Trayectoria documentada</Typography><Stack spacing={2}>{person?.career.map((c,i)=><Box key={i} className="career"><Typography>{c.role}</Typography><Typography color="primary">{c.institution}</Typography><Typography variant="caption" color="text.secondary">{c.start} — {c.end}</Typography><Typography variant="body2" color="text.secondary">{c.description}</Typography></Box>)}</Stack></Drawer>}
 
-function ScoreDialog({value,onClose,onEdit}:{value:{ev:Evaluation;criterionId:string}|null;onClose:()=>void;onEdit:(e:string,c:string,v:number)=>void}){const data=useRadarStore(s=>s.data)!;const edits=useRadarStore(s=>s.edits);if(!value)return null;const criterion=data.criteria.find(c=>c.id===value.criterionId)!;const current=edits[`${value.ev.id}:${criterion.id}`]??value.ev.scores[criterion.id];const history=data.evaluations.filter(e=>e.personId===value.ev.personId&&e.scores[criterion.id]!=null).map(e=>({date:e.date,value:e.scores[criterion.id]}));return <Dialog open onClose={onClose} fullWidth maxWidth="sm"><DialogTitle>{criterion.short} · {value.ev.person}<IconButton onClick={onClose} sx={{float:"right"}}><Close/></IconButton></DialogTitle><DialogContent><Typography color="text.secondary">{criterion.name}</Typography><ResponsiveContainer width="100%" height={230}><LineChart data={history}><CartesianGrid stroke="#333"/><XAxis dataKey="date" tickFormatter={formatDate}/><YAxis domain={[0,10]}/><ChartTooltip/><Line dataKey="value" stroke={orange}/></LineChart></ResponsiveContainer><Stack direction="row" alignItems="center" gap={2}><Typography variant="h4">{Number(current).toFixed(1)}</Typography><Button startIcon={<Edit/>} onClick={()=>{const x=prompt("Nueva calificación (0–10)",String(current));if(x!==null){const n=Number(x);if(n>=0&&n<=10)onEdit(value.ev.id,criterion.id,n)}}}>Editar en esta sesión</Button></Stack><Typography color="text.secondary" sx={{mt:2}}>{value.ev.scoreNotes[criterion.id]||value.ev.notes}</Typography></DialogContent></Dialog>}
+function ScoreDialog({value,onClose,onEdit}:{value:{ev:Evaluation;criterionId:string}|null;onClose:()=>void;onEdit:(e:string,c:string,v:number)=>void}){const data=useRadarStore(s=>s.data)!;const edits=useRadarStore(s=>s.edits);if(!value)return null;const criterion=data.criteria.find(c=>c.id===value.criterionId)!;const current=edits[`${value.ev.id}:${criterion.id}`]??value.ev.scores[criterion.id];const history=data.evaluations.filter(e=>e.personId===value.ev.personId&&e.scores[criterion.id]!=null).map(e=>({date:e.date,value:e.scores[criterion.id]}));return <Dialog open onClose={onClose} fullWidth maxWidth="sm"><DialogTitle>{criterion.short} · {value.ev.person}<IconButton onClick={onClose} sx={{float:"right"}}><Close/></IconButton></DialogTitle><DialogContent><Typography color="text.secondary">{criterion.name}</Typography><ResponsiveContainer width="100%" height={230}><LineChart data={history}><CartesianGrid stroke="#333"/><XAxis dataKey="date" tickFormatter={formatDate}/><YAxis domain={[0,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter}/><Line dataKey="value" stroke={orange}/></LineChart></ResponsiveContainer><Stack direction="row" alignItems="center" gap={2}><Typography variant="h4">{formatScore(current)}</Typography><Button startIcon={<Edit/>} onClick={()=>{const x=prompt("Nueva calificación (0–10)",String(current));if(x!==null){const n=Number(x);if(n>=0&&n<=10)onEdit(value.ev.id,criterion.id,n)}}}>Editar en esta sesión</Button></Stack><Typography color="text.secondary" sx={{mt:2}}>{value.ev.scoreNotes[criterion.id]||value.ev.notes}</Typography></DialogContent></Dialog>}
