@@ -33,7 +33,7 @@ export type Evaluation = {
   personId: string;
   person: string;
   date: string;
-  total: number;
+  total: number | null;
   origin: string;
   evaluator: string;
   notes: string;
