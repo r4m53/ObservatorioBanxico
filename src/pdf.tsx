@@ -1,6 +1,6 @@
 import { Document, Page, Text, View, StyleSheet, pdf } from "@react-pdf/renderer";
 import type { AppData, EvaluationMode } from "./types";
-import { evaluationFor, nearestBoard } from "./data";
+import { evaluationFor, evaluationTotal, nearestBoard } from "./data";
 
 const styles = StyleSheet.create({
   page: { padding: 28, backgroundColor: "#111", color: "#eee", fontFamily: "Helvetica", fontSize: 8 },
@@ -44,6 +44,7 @@ function RadarDocument({
         <Text style={styles.banner}>{label}</Text>
         {dates.map((date) => {
           const board = nearestBoard(data, date);
+          if (!board) return null;
           return (
             <View key={date} style={styles.board}>
               <Text style={styles.boardTitle}>
@@ -59,20 +60,19 @@ function RadarDocument({
                 const values = data.criteria.map(
                   (criterion) =>
                     edits[`${evaluation.id}:${criterion.id}`] ??
-                    evaluation.scores[criterion.id] ??
-                    0,
+                    evaluation.scores[criterion.id],
                 );
-                const total = values.reduce((sum, value) => sum + value, 0) / values.length;
+                const total = evaluationTotal(data, evaluation, edits);
                 return (
                   <View key={name} style={styles.row}>
                     <Text style={styles.name}>
                       {name}
                       {name === board.governor ? " · Gobernador" : ""}
                     </Text>
-                    <Text style={styles.value}>{total.toFixed(2)}</Text>
+                    <Text style={styles.value}>{total == null ? "N/D" : total.toFixed(1)}</Text>
                     {values.map((value, index) => (
                       <Text key={index} style={styles.value}>
-                        {value.toFixed(1)}
+                        {value == null ? "N/D" : value.toFixed(1)}
                       </Text>
                     ))}
                   </View>
