@@ -20,7 +20,7 @@ def rows(ws, header_row=3):
 
 def num(v):
     try: return round(float(v), 6)
-    except (TypeError,ValueError): return 0.0
+    except (TypeError,ValueError): return None
 
 def main():
     if not SOURCE.exists(): raise SystemExit(f"No se encontró el libro maestro: {SOURCE}")
@@ -44,7 +44,9 @@ def main():
         people.append({"id":pid,"name":name,"firstBoardDate":iso(r["Primera_Fecha_Junta"]),"lastBoardDate":iso(r["Ultima_Fecha_Junta"]),"active":str(r["Activo_Junta"]).lower()=="sí","biography":r["Observaciones"] or "Perfil curricular documentado en el libro maestro del Observatorio Banxico.","career":career.get(name,[]),"profile":profile})
     details=defaultdict(dict); detail_notes=defaultdict(dict)
     for r in rows(wb["Heath_Detalle"]):
-        details[r["Evaluacion_ID"]][r["Criterio_ID"]]=num(r["Calificacion"])
+        score=num(r["Calificacion"])
+        if score is not None:
+            details[r["Evaluacion_ID"]][r["Criterio_ID"]]=score
         detail_notes[r["Evaluacion_ID"]][r["Criterio_ID"]]=r["Comentario"] or ""
     evaluations=[]
     for r in rows(wb["Heath_Evaluaciones"]):
