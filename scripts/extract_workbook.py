@@ -22,6 +22,24 @@ def num(v):
     try: return round(float(v), 6)
     except (TypeError,ValueError): return None
 
+def comparador_timeline(wb):
+    """Return the exact date list exposed by the Excel comparators."""
+    monthly_dates = wb.defined_names.get("MonthlyDates")
+    if monthly_dates is None or "Monthly_Experience!$A$3" not in monthly_dates.attr_text:
+        raise ValueError("El rango MonthlyDates del Comparador no apunta a Monthly_Experience!A3")
+    dates = [
+        iso(values[0])
+        for values in wb["Monthly_Experience"].iter_rows(min_row=3, values_only=True)
+        if values[0]
+    ]
+    if not dates:
+        raise ValueError("El rango MonthlyDates del Comparador está vacío")
+    if len(dates) != len(set(dates)):
+        raise ValueError("El rango MonthlyDates del Comparador contiene fechas duplicadas")
+    if dates != sorted(dates):
+        raise ValueError("El rango MonthlyDates del Comparador no está ordenado")
+    return dates
+
 def main():
     if not SOURCE.exists(): raise SystemExit(f"No se encontró el libro maestro: {SOURCE}")
     wb=load_workbook(SOURCE,data_only=True,read_only=False,keep_vba=True)
@@ -62,9 +80,10 @@ def main():
     for vals in ws.iter_rows(min_row=3,values_only=True):
         if not vals[0]: continue
         exp.append({"date":iso(vals[0]),"total":num(vals[1]),"fiscal":num(vals[2]),"monetary":num(vals[3])})
-    payload={"metadata":{"generatedAt":datetime.now().isoformat(timespec="seconds"),"source":SOURCE.name,"latestDate":max(iso(v[0]) for v in wb["Monthly_Experience"].iter_rows(min_row=3,values_only=True) if v[0])},"criteria":criteria,"people":people,"boards":boards,"evaluations":evaluations,"experience":exp}
+    timeline=comparador_timeline(wb)
+    payload={"metadata":{"generatedAt":datetime.now().isoformat(timespec="seconds"),"source":SOURCE.name,"latestDate":timeline[-1],"timelineSource":"Excel: MonthlyDates (Comparador → Monthly_Experience!A3:A)"},"timeline":timeline,"criteria":criteria,"people":people,"boards":boards,"evaluations":evaluations,"experience":exp}
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     OUTPUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
-    print(f"OK {OUTPUT} | {len(people)} personas | {len(boards)} juntas | {len(evaluations)} evaluaciones | {len(exp)} meses")
+    print(f"OK {OUTPUT} | {len(timeline)} fechas | {len(people)} personas | {len(boards)} periodos de junta | {len(evaluations)} evaluaciones | {len(exp)} meses")
 
 if __name__=="__main__": main()
