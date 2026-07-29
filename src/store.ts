@@ -36,7 +36,13 @@ export const useRadarStore = create<Store>((set, get) => ({
   edits: saved.edits,
   selectedBoards: saved.selectedBoards,
   activeTab: 0,
-  setData: (data) => set({ data, selectedBoards: get().selectedBoards.length ? get().selectedBoards : [data.metadata.latestDate] }),
+  setData: (data) => {
+    const validSavedDates = get().selectedBoards.filter((date) => data.timeline.includes(date));
+    set({
+      data,
+      selectedBoards: validSavedDates.length ? validSavedDates : [data.metadata.latestDate],
+    });
+  },
   setMode: (mode) => {
     const next = { ...get(), mode, edits: {} };
     persist(next);
