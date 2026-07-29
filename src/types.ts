@@ -74,4 +74,18 @@ export type AppData = {
   experience: ExperiencePoint[];
 };
 
-export type EvaluationMode = "official" | "heath" | "custom";
+export type EvaluationSourceMode = "official" | "heath";
+export type EvaluationMode = EvaluationSourceMode | "custom";
+
+export type EvaluationChange = {
+  id: string;
+  boardDate: string;
+  evaluationId: string;
+  person: string;
+  criterionId: string;
+  criterion: string;
+  originalValue: number;
+  newValue: number;
+  sourceMode: EvaluationSourceMode;
+  timestamp: string;
+};
