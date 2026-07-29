@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "publish:data": "python scripts/extract_workbook.py"
+    "publish:data": "python scripts/extract_workbook.py",
+    "validate:data": "python scripts/validate_timeline.py"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
