@@ -60,7 +60,13 @@ export type ExperiencePoint = {
 };
 
 export type AppData = {
-  metadata: { generatedAt: string; source: string; latestDate: string };
+  metadata: {
+    generatedAt: string;
+    source: string;
+    latestDate: string;
+    timelineSource: string;
+  };
+  timeline: string[];
   criteria: Criterion[];
   people: Person[];
   boards: Board[];
