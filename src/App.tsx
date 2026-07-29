@@ -4,7 +4,7 @@ import {
   FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table,
   TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Tooltip, Typography
 } from "@mui/material";
-import { Close, Download, Edit, RestartAlt, Timeline } from "@mui/icons-material";
+import { Close, Download, Edit, RestartAlt } from "@mui/icons-material";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip as ChartTooltip, XAxis, YAxis, Legend } from "recharts";
 import { motion } from "framer-motion";
 import { average, evaluationFor, evaluationTotal, loadData, nearestBoard } from "./data";
@@ -33,7 +33,7 @@ const tooltipFormatter = (value: unknown) => {
 };
 
 export default function App() {
-  const { data, setData, mode, setMode, selectedBoards, selectBoard, activeTab, setActiveTab, edits, editScore, reset } = useRadarStore();
+  const { data, setData, mode, setMode, selectedBoards, activeTab, setActiveTab, edits, editScore, reset } = useRadarStore();
   const [entered, setEntered] = useState(false);
   const [person, setPerson] = useState<Person | null>(null);
   const [scoreModal, setScoreModal] = useState<{ ev: Evaluation; criterionId: string } | null>(null);
@@ -85,7 +85,7 @@ function Welcome({ onEnter }: { onEnter: () => void }) {
 function Comparator({ onPerson, onScore }: { onPerson: (p: Person)=>void; onScore: (e: Evaluation,c:string)=>void }) {
   const { data, mode, edits, selectedBoards, selectBoard } = useRadarStore();
   if (!data) return null;
-  const boardDates = data.boards.map(b=>b.date);
+  const boardDates = data.timeline;
   return <Stack spacing={3}>
     <Box><Typography variant="overline" color="primary">COMPARADOR HISTÓRICO</Typography><Typography variant="h3">La Junta, lado a lado</Typography><Typography color="text.secondary">Selecciona hasta tres cortes. No mostramos diferencias: la lectura queda en manos del usuario.</Typography></Box>
     <Stack direction="row" gap={1} flexWrap="wrap">{selectedBoards.map((d,i)=><FormControl key={i} size="small" sx={{ minWidth: 190 }}><InputLabel>Junta {String.fromCharCode(65+i)}</InputLabel><Select label={`Junta ${String.fromCharCode(65+i)}`} value={d} onChange={e=>selectBoard(e.target.value)}>{boardDates.map(x=><MenuItem key={x} value={x}>{formatDate(x)}</MenuItem>)}</Select></FormControl>)}
@@ -108,8 +108,9 @@ function BoardTable({date,onPerson,onScore,mode,edits}:{date:string;onPerson:(p:
 }
 
 function HistoricalChart() {
-  const {data,mode,edits,selectBoard}=useRadarStore(); if(!data)return null;
-  const series=useMemo(()=>data.boards.map(board=>{const evals=board.members.map(n=>evaluationFor(data,board.date,n,mode)).filter(Boolean) as Evaluation[];const score=average(evals.map(e=>evaluationTotal(data,e,edits)));return {date:board.date,label:formatDate(board.date),score}}).filter(x=>x.score!=null),[data,mode,edits]);
+  const {data,mode,edits,selectBoard}=useRadarStore();
+  const series=useMemo(()=>data ? data.timeline.map(date=>{const board=nearestBoard(data,date);const evals=board?.members.map(n=>evaluationFor(data,date,n,mode)).filter(Boolean) as Evaluation[]|undefined;const score=average(evals?.map(e=>evaluationTotal(data,e,edits))??[]);return {date,label:formatDate(date),score}}) : [],[data,mode,edits]);
+  if(!data)return null;
   const handleClick = (state: unknown) => {
     const payload = (state as { activePayload?: Array<{ payload?: { date?: string } }> })?.activePayload?.[0]?.payload;
     if (payload?.date) selectBoard(payload.date);
@@ -121,8 +122,7 @@ function ExperienceChart() {
   const {data,selectBoard}=useRadarStore(); if(!data)return null;
   const handleClick = (state: unknown) => {
     const payload = (state as { activePayload?: Array<{ payload?: { date?: string } }> })?.activePayload?.[0]?.payload;
-    const board = payload?.date ? nearestBoard(data, payload.date) : undefined;
-    if (board) selectBoard(board.date);
+    if (payload?.date && nearestBoard(data, payload.date)) selectBoard(payload.date);
   };
   return <ChartPanel eyebrow="CAPITAL PROFESIONAL" title="Experiencia acumulada de la Junta" subtitle="Promedios mensuales de experiencia total, monetaria y fiscal."><ResponsiveContainer width="100%" height={470}><LineChart data={data.experience} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="date" tickFormatter={formatDate} minTickGap={50}/><YAxis tickFormatter={(v:number)=>v.toFixed(1)}/><Legend/><ChartTooltip formatter={tooltipFormatter} labelFormatter={(label)=>typeof label==="string"?formatDate(label):String(label??"")} contentStyle={{background:"#171717",border:"1px solid #444"}}/><Line dot={false} dataKey="total" name="Total" stroke={orange} strokeWidth={2.3}/><Line dot={false} dataKey="monetary" name="Monetaria" stroke="#4da3ff" strokeWidth={1.8}/><Line dot={false} dataKey="fiscal" name="Fiscal" stroke="#33c37d" strokeWidth={1.8}/></LineChart></ResponsiveContainer></ChartPanel>;
 }
