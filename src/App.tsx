@@ -134,16 +134,16 @@ function BoardRows({date,label,onPerson,mode,sourceMode,edits,active,onActivate,
   const avgTotal=average(rows.map(r=>r.ev ? evaluationTotal(data,date,r.ev,edits) : null));
   const contextColor=modeMeta[mode].color;
   return <>
-    <TableRow ref={rowRef} className={`board-title-row ${active?"board-active":""}`} onClick={onActivate} sx={{"--context-color":contextColor} as React.CSSProperties}>
-      <TableCell colSpan={13}><span>{label} — {formatLongDate(date)}</span><strong>Promedio general {formatScore(avgTotal)}</strong></TableCell>
+    <TableRow ref={rowRef} className={`board-title-row ${active?"board-active":""}`} sx={{"--context-color":contextColor} as React.CSSProperties}>
+      <TableCell colSpan={13}><Button className="board-activate" onClick={onActivate}>{label} — {formatLongDate(date)}</Button><strong>Promedio general {formatScore(avgTotal)}</strong></TableCell>
     </TableRow>
-    {rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <TableRow key={name} className="person-row" onClick={onActivate}>
+    {rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <TableRow key={name} className="person-row">
       <TableCell><Button className="person-link" onClick={event=>{event.stopPropagation();if(person)onPerson(person)}}>{name}</Button></TableCell>
       <TableCell>{name===board.governor?"Gobernador":"Subgobernador"}</TableCell>
       <TableCell align="right" className="total-cell">{formatScore(total)}</TableCell>
       {data.criteria.map(c=>{const original=ev?.scores[c.id];const key=ev?scoreEditKey(date,ev.id,c.id):"";const edited=key in edits;const value=ev?effectiveScore(date,ev,c.id,edits):null;return <TableCell align="right" key={c.id} className={edited?"modified-score":""}><EditableScore value={value} edited={edited} onCommit={newValue=>ev&&original!=null&&editScore({boardDate:date,evaluationId:ev.id,person:name,criterionId:c.id,criterion:c.name,originalValue:original,newValue})}/></TableCell>})}
     </TableRow>})}
-    <TableRow className="board-average-row" onClick={onActivate}><TableCell colSpan={2}>Promedio de la Junta</TableCell><TableCell align="right">{formatScore(avgTotal)}</TableCell>{averages.map((value,index)=><TableCell align="right" key={data.criteria[index].id}>{formatScore(value)}</TableCell>)}</TableRow>
+    <TableRow className="board-average-row"><TableCell colSpan={2}>Promedio de la Junta</TableCell><TableCell align="right">{formatScore(avgTotal)}</TableCell>{averages.map((value,index)=><TableCell align="right" key={data.criteria[index].id}>{formatScore(value)}</TableCell>)}</TableRow>
     <TableRow className="board-separator"><TableCell colSpan={13}/></TableRow>
   </>;
 }
@@ -178,6 +178,38 @@ function ExperienceChart() {
 
 function ChartPanel({eyebrow,title,subtitle,children}:{eyebrow:string;title:string;subtitle:string;children:React.ReactNode}) {return <Paper sx={{p:{xs:2,md:4}}}><Typography variant="overline" color="primary">{eyebrow}</Typography><Typography variant="h3">{title}</Typography><Typography color="text.secondary" sx={{mb:4}}>{subtitle}</Typography>{children}</Paper>}
 
-function Methodology(){const data=useRadarStore(s=>s.data)!;return <Stack spacing={3}><Box><Typography variant="overline" color="primary">TRANSPARENCIA</Typography><Typography variant="h3">Cómo leer Radar BM</Typography></Box><Paper sx={{p:4}}><Typography variant="h5">Reconocimiento metodológico</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar BM es una metodología desarrollada por Observatorio Banxico a partir de los criterios de evaluación publicados por Jonathan Heath. Las calificaciones históricas publicadas se preservan como fuente; toda reconstrucción, ampliación y estimación es responsabilidad del Observatorio.</Typography></Paper><Box className="criteria-grid">{data.criteria.map(c=><Paper key={c.id} sx={{p:3}}><Typography color="primary">{String(c.number).padStart(2,"0")}</Typography><Typography variant="h6">{c.name}</Typography><Typography color="text.secondary">{c.definition}</Typography><Chip size="small" label={c.nature} sx={{mt:2}}/></Paper>)}</Box></Stack>}
+function Methodology(){const data=useRadarStore(s=>s.data)!;return <Stack spacing={3}>
+  <Box><Typography variant="overline" color="primary">METODOLOGÍA Y TRANSPARENCIA</Typography><Typography variant="h3">Cómo leer Radar BM</Typography></Box>
+  <Box className="method-grid">
+    <Paper sx={{p:3}}><Typography variant="h5">Metodología original</Typography><Typography color="text.secondary" sx={{mt:1}}>Jonathan Heath, economista y subgobernador del Banco de México, publicó criterios para analizar perfiles de integrantes de la Junta de Gobierno. Su propósito y contexto originales corresponden a esas publicaciones y ejercicios públicos, cuyas calificaciones se preservan en el archivo histórico y en los metadatos de cada evaluación.</Typography><Typography color="text.secondary" sx={{mt:1}}>La propuesta original no fue diseñada como una serie mensual exhaustiva ni como una evaluación oficial del Banco de México; su cobertura depende de la información y de los cortes publicados.</Typography></Paper>
+    <Paper sx={{p:3}}><Typography variant="h5">Adaptación Observatorio Banxico</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar BM adapta esos criterios para consultar y comparar históricamente la integración de las Juntas de Gobierno. La reconstrucción temporal, las ampliaciones, las estimaciones y la aplicación retrospectiva son responsabilidad exclusiva del Observatorio Banxico y pueden diferir del propósito original de Jonathan Heath.</Typography></Paper>
+    <Paper sx={{p:3}}><Typography variant="h5">Fuentes, supuestos y limitaciones</Typography><Typography color="text.secondary" sx={{mt:1}}>La fuente principal es el libro histórico auditado del Observatorio Banxico. Los meses intermedios extienden la última evaluación vigente sólo cuando no existe evidencia de cambio. La disponibilidad de perfiles, fuentes y calificaciones varía por periodo; los valores ausentes no se tratan como cero. Una reconstrucción no sustituye una evaluación publicada y toda incertidumbre debe interpretarse con cautela.</Typography></Paper>
+  </Box>
+  <Box className="criteria-grid">{data.criteria.map(c=><Paper key={c.id} sx={{p:3}}><Typography color="primary">{String(c.number).padStart(2,"0")}</Typography><Typography variant="h6">{c.name}</Typography><Typography color="text.secondary">{c.definition}</Typography><Chip size="small" label={c.nature} sx={{mt:2}}/></Paper>)}</Box>
+  <Paper sx={{p:3}}><Typography variant="overline" color="primary">TRANSPARENCIA</Typography><Typography variant="h5">Uso de inteligencia artificial</Typography><Typography color="text.secondary" sx={{mt:1}}>Se utilizó inteligencia artificial como apoyo para programación, documentación, revisión y validación. La selección de fuentes, las decisiones metodológicas, las calificaciones y la responsabilidad final del contenido corresponden al Observatorio Banxico.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Revisión continua</Typography><Typography color="text.secondary" sx={{mt:1}}>La base histórica permanece bajo revisión continua. La aparición de nuevas fuentes puede motivar precisiones o correcciones, que deberán documentarse sin cambios silenciosos.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Changelog</Typography><Typography color="text.secondary" sx={{mt:1}}>RC1: refinamiento del comparador, persistencia del indicador de evaluación, drawer estructurado y ampliación metodológica. Las correcciones futuras se incorporarán aquí con fecha, evidencia y efecto sobre la serie.</Typography></Paper>
+</Stack>}
 
-function PersonDrawer({person,onClose}:{person:Person|null;onClose:()=>void}){return <Drawer anchor="right" open={!!person} onClose={onClose} PaperProps={{sx:{width:{xs:"94vw",md:520},p:3}}}><Box sx={{display:"flex",justifyContent:"space-between"}}><Box><Typography className="brand">PERFIL</Typography><Typography variant="h4">{person?.name}</Typography></Box><IconButton onClick={onClose}><Close/></IconButton></Box><Divider sx={{my:3}}/><Typography color="text.secondary">{person?.biography}</Typography><Typography variant="h6" sx={{mt:4,mb:2}}>Trayectoria documentada</Typography><Stack spacing={2}>{person?.career.map((c,i)=><Box key={i} className="career"><Typography>{c.role}</Typography><Typography color="primary">{c.institution}</Typography><Typography variant="caption" color="text.secondary">{c.start} — {c.end}</Typography><Typography variant="body2" color="text.secondary">{c.description}</Typography></Box>)}</Stack></Drawer>}
+function careerCategory(entry: Person["career"][number]) {
+  const text=`${entry.institution} ${entry.role} ${entry.description}`.toLowerCase();
+  const monetary=/banco de méxico|banxico|monetari|banca central/.test(text);
+  const fiscal=/hacienda|shcp|finanzas públicas|presupuesto|fiscal|inversión pública/.test(text);
+  if(monetary&&fiscal)return "Ambas";
+  if(monetary)return "Política monetaria";
+  if(fiscal)return "Finanzas públicas";
+  return "No computa";
+}
+
+function PersonDrawer({person,onClose}:{person:Person|null;onClose:()=>void}){
+  const [tab,setTab]=useState(0);
+  useEffect(()=>setTab(0),[person?.id]);
+  const profile=person?.profile??{};
+  const academic=[
+    ["Grado",profile["Grado"]],["Institución",profile["Institución académica"]],["Disciplina",profile["Disciplina"]],["Año",profile["Año"]],["Reconocimientos",profile["Reconocimientos"]]
+  ];
+  return <Drawer anchor="right" open={!!person} onClose={onClose} PaperProps={{sx:{width:{xs:"96vw",md:620}}}}>
+    <Box className="drawer-head"><Box><Typography className="brand">PERFIL</Typography><Typography variant="h4">{person?.name}</Typography></Box><IconButton onClick={onClose}><Close/></IconButton></Box>
+    <Typography color="text.secondary" sx={{px:3,pb:2}}>{person?.biography}</Typography>
+    <Tabs value={tab} onChange={(_,value)=>setTab(value)} variant="fullWidth" className="drawer-tabs"><Tab label="Trayectoria profesional"/><Tab label="Formación académica"/></Tabs>
+    <Box className="drawer-content">{tab===0?<Stack spacing={2}>{person?.career.map((c,i)=><Box key={i} className="career"><Stack direction="row" justifyContent="space-between" gap={1}><Typography>{c.role}</Typography><Chip size="small" label={careerCategory(c)} className={`career-tag tag-${careerCategory(c).toLowerCase().replaceAll(" ","-")}`}/></Stack><Typography color="primary">{c.institution}</Typography><Typography variant="caption" color="text.secondary">{c.start} — {c.end}</Typography><Typography variant="body2" color="text.secondary">{c.description}</Typography></Box>)}</Stack>:<Box><Typography variant="body2" color="text.secondary" sx={{mb:2}}>La base actual no contiene formación académica estructurada para todos los integrantes. Los campos no documentados se muestran como N/D y no se infieren.</Typography>{academic.map(([label,value])=><Box className="academic-row" key={String(label)}><span>{label}</span><strong>{value==null||value===""?"N/D":String(value)}</strong></Box>)}</Box>}</Box>
+  </Drawer>
+}
