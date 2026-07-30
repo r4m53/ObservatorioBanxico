@@ -77,6 +77,7 @@ type Store = {
   changes: EvaluationChange[];
   evaluationHash: string;
   selectedBoards: string[];
+  activeBoard: string;
   activeTab: number;
   setData: (data: AppData) => void;
   setSourceMode: (mode: EvaluationSourceMode) => void;
@@ -105,12 +106,14 @@ export const useRadarStore = create<Store>((set, get) => {
     changes: saved.changes,
     evaluationHash: "",
     selectedBoards: saved.selectedBoards,
+    activeBoard: saved.selectedBoards.at(-1) ?? "",
     activeTab: 0,
     setData: (data) => {
       const validSavedDates = get().selectedBoards.filter((date) => data.timeline.includes(date));
       set({
         data,
         selectedBoards: validSavedDates.length ? validSavedDates : [data.metadata.latestDate],
+        activeBoard: validSavedDates.at(-1) ?? data.metadata.latestDate,
       });
     },
     setSourceMode: (sourceMode) => {
@@ -133,7 +136,7 @@ export const useRadarStore = create<Store>((set, get) => {
         changes: get().changes,
         selectedBoards,
       });
-      set({ selectedBoards, activeTab: 0 });
+      set({ selectedBoards, activeBoard: date, activeTab: 0 });
     },
     setActiveTab: (activeTab) => set({ activeTab }),
     editScore: (input) => {
