@@ -202,14 +202,16 @@ function careerCategory(entry: Person["career"][number]) {
 function PersonDrawer({person,onClose}:{person:Person|null;onClose:()=>void}){
   const [tab,setTab]=useState(0);
   useEffect(()=>setTab(0),[person?.id]);
-  const profile=person?.profile??{};
-  const academic=[
-    ["Grado",profile["Grado"]],["Institución",profile["Institución académica"]],["Disciplina",profile["Disciplina"]],["Año",profile["Año"]],["Reconocimientos",profile["Reconocimientos"]]
-  ];
+  const academic=useMemo(()=>[...(person?.academic??[])].sort((a,b)=>
+    a.order-b.order
+    || (a.year==null?1:0)-(b.year==null?1:0)
+    || (a.year??0)-(b.year??0)
+    || a.sourceOrder-b.sourceOrder
+  ),[person?.academic]);
   return <Drawer anchor="right" open={!!person} onClose={onClose} PaperProps={{sx:{width:{xs:"96vw",md:620}}}}>
     <Box className="drawer-head"><Box><Typography className="brand">PERFIL</Typography><Typography variant="h4">{person?.name}</Typography></Box><IconButton onClick={onClose}><Close/></IconButton></Box>
     <Typography color="text.secondary" sx={{px:3,pb:2}}>{person?.biography}</Typography>
     <Tabs value={tab} onChange={(_,value)=>setTab(value)} variant="fullWidth" className="drawer-tabs"><Tab label="Trayectoria profesional"/><Tab label="Formación académica"/></Tabs>
-    <Box className="drawer-content">{tab===0?<Stack spacing={2}>{person?.career.map((c,i)=><Box key={i} className="career"><Stack direction="row" justifyContent="space-between" gap={1}><Typography>{c.role}</Typography><Chip size="small" label={careerCategory(c)} className={`career-tag tag-${careerCategory(c).toLowerCase().replaceAll(" ","-")}`}/></Stack><Typography color="primary">{c.institution}</Typography><Typography variant="caption" color="text.secondary">{c.start} — {c.end}</Typography><Typography variant="body2" color="text.secondary">{c.description}</Typography></Box>)}</Stack>:<Box><Typography variant="body2" color="text.secondary" sx={{mb:2}}>La base actual no contiene formación académica estructurada para todos los integrantes. Los campos no documentados se muestran como N/D y no se infieren.</Typography>{academic.map(([label,value])=><Box className="academic-row" key={String(label)}><span>{label}</span><strong>{value==null||value===""?"N/D":String(value)}</strong></Box>)}</Box>}</Box>
+    <Box className="drawer-content">{tab===0?<Stack spacing={2}>{person?.career.map((c,i)=><Box key={i} className="career"><Stack direction="row" justifyContent="space-between" gap={1}><Typography>{c.role}</Typography><Chip size="small" label={careerCategory(c)} className={`career-tag tag-${careerCategory(c).toLowerCase().replaceAll(" ","-")}`}/></Stack><Typography color="primary">{c.institution}</Typography><Typography variant="caption" color="text.secondary">{c.start} — {c.end}</Typography><Typography variant="body2" color="text.secondary">{c.description}</Typography></Box>)}</Stack>:academic.length===0?<Typography variant="body2" color="text.secondary">No existe información académica disponible para este integrante.</Typography>:<Stack spacing={2}>{academic.map((entry,index)=>{const program=/^estudios\b/i.test(entry.originalProgram)?entry.originalProgram:entry.program;return <Box key={`${entry.sourceOrder}-${index}`}><Typography variant="h6">{entry.type}</Typography>{program&&<Box className="academic-row"><span>Programa</span><strong>{program}</strong></Box>}{entry.institution&&<Box className="academic-row"><span>Institución</span><strong>{entry.institution}</strong></Box>}{entry.country&&<Box className="academic-row"><span>País</span><strong>{entry.country}</strong></Box>}{entry.year!=null&&<Box className="academic-row"><span>Año</span><strong>{entry.year}</strong></Box>}{entry.status&&<Box className="academic-row"><span>Estado</span><strong>{entry.status}</strong></Box>}{index<academic.length-1&&<Divider sx={{mt:2}}/>}</Box>})}</Stack>}</Box>
   </Drawer>
 }

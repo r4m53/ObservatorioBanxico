@@ -15,7 +15,25 @@ export type Person = {
   active: boolean;
   biography: string;
   career: CareerEntry[];
+  academic: AcademicEntry[];
   profile?: Record<string, number | string>;
+};
+
+export type AcademicEntry = {
+  order: number;
+  type: string;
+  originalProgram: string;
+  program: string;
+  institution: string;
+  country: string;
+  year: number | null;
+  status: string;
+  sourceOrder: number;
+  evidenceLevel: string;
+  document: string;
+  url: string;
+  consultedAt: string;
+  observations: string;
 };
 
 export type CareerEntry = {

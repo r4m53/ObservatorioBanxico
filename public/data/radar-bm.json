@@ -1,9 +1,15 @@
 {
   "metadata": {
-    "generatedAt": "2026-07-29T15:07:30",
-    "source": "Observatorio_Banxico_Indice_Heath_FINAL_CORREGIDO.xlsm",
+    "generatedAt": "2026-07-30T07:06:44",
+    "source": "Observatorio_Banxico_Indice_Heath_FINAL_CORREGIDO_v20260729.xlsm",
     "latestDate": "2026-06-30",
-    "timelineSource": "Excel: MonthlyDates (Comparador → Monthly_Experience!A3:A)"
+    "timelineSource": "Excel: MonthlyDates (Comparador → Monthly_Experience!A3:A)",
+    "academicSource": "Excel: Formacion_Academica (relación exclusiva por Persona_ID)",
+    "academicValidation": {
+      "records": 52,
+      "peopleWithRecords": 21,
+      "issues": 0
+    }
   },
   "timeline": [
     "1995-01-31",
@@ -513,6 +519,40 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": 1956,
+          "status": "Concluida",
+          "sourceOrder": 1,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Miguel Mancera",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría",
+          "program": "Maestría (programa no especificado)",
+          "institution": "Yale University",
+          "country": "Estados Unidos",
+          "year": 1960,
+          "status": "Concluida",
+          "sourceOrder": 2,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Miguel Mancera",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "La fuente no especifica el nombre del programa."
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 27.212058,
         "Experiencia Total Sector Privado": 2.502447,
@@ -550,6 +590,40 @@
           "description": "Integrante de la Junta; política monetaria y banca central.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Estudios de licenciatura",
+          "program": "Licenciatura (programa no especificado)",
+          "institution": "University of Manchester",
+          "country": "Reino Unido",
+          "year": null,
+          "status": "Estudios reportados; grado y año no especificados",
+          "sourceOrder": 3,
+          "evidenceLevel": "Media",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "La fuente conjunta sólo indica estudios de licenciatura."
+        },
+        {
+          "order": 7,
+          "type": "Otro",
+          "originalProgram": "Estudios de posgrado",
+          "program": "Posgrado (grado no especificado)",
+          "institution": "University of Manchester",
+          "country": "Reino Unido",
+          "year": null,
+          "status": "Estudios reportados; grado y año no especificados",
+          "sourceOrder": 4,
+          "evidenceLevel": "Media",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -591,6 +665,56 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Estudios de licenciatura",
+          "program": "Licenciatura (programa no especificado)",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida; año no publicado en la fuente",
+          "sourceOrder": 5,
+          "evidenceLevel": "Alta",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida; año no publicado en la fuente",
+          "sourceOrder": 6,
+          "evidenceLevel": "Alta",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido; año no publicado en la fuente",
+          "sourceOrder": 7,
+          "evidenceLevel": "Alta",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 26.505678,
         "Experiencia Total Sector Privado": 0.0,
@@ -628,6 +752,24 @@
           "description": "Integrante de la Junta; política monetaria, sistemas de pagos y estabilidad financiera.",
           "source": "Informes anuales Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 7,
+          "type": "Otro",
+          "originalProgram": "Información académica no localizada con suficiente evidencia",
+          "program": "Información insuficiente",
+          "institution": "No determinada",
+          "country": "No determinado",
+          "year": null,
+          "status": "Información insuficiente",
+          "sourceOrder": 8,
+          "evidenceLevel": "Baja",
+          "document": "Fuentes oficiales revisadas sin detalle académico concluyente",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "Requiere revisión manual; no se infiere la institución a partir del tratamiento «Ing.»."
         }
       ],
       "profile": {
@@ -669,6 +811,40 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Autónoma de Nuevo León",
+          "country": "México",
+          "year": null,
+          "status": "Concluida; año no publicado en la fuente",
+          "sourceOrder": 9,
+          "evidenceLevel": "Alta",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado",
+          "program": "Doctorado (programa no especificado)",
+          "institution": "Columbia University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido; año no publicado en la fuente",
+          "sourceOrder": 10,
+          "evidenceLevel": "Alta",
+          "document": "Autonomía de la Banca Central en México",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "La fuente no especifica el nombre del programa doctoral."
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 28.50435,
         "Experiencia Total Sector Privado": 0.0,
@@ -706,6 +882,56 @@
           "description": "Integrante de la Junta; política monetaria y mercados financieros.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad de las Américas Puebla",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 11,
+          "evidenceLevel": "Alta",
+          "document": "Nombramiento al Comité del Fondo Mexicano del Petróleo",
+          "url": "https://sil.gobernacion.gob.mx/Archivos/Documentos/2015/04/asun_3235198_20150421_1429724682.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Pennsylvania",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 12,
+          "evidenceLevel": "Alta",
+          "document": "Nombramiento al Comité del Fondo Mexicano del Petróleo",
+          "url": "https://sil.gobernacion.gob.mx/Archivos/Documentos/2015/04/asun_3235198_20150421_1429724682.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "George Washington University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 13,
+          "evidenceLevel": "Alta",
+          "document": "Nombramiento al Comité del Fondo Mexicano del Petróleo",
+          "url": "https://sil.gobernacion.gob.mx/Archivos/Documentos/2015/04/asun_3235198_20150421_1429724682.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -754,6 +980,56 @@
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Autónoma de Nuevo León",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 14,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza por Doctorado Honoris Causa",
+          "url": "https://egade.tec.mx/es/blog/invisten-doctor-honoris-causa-everardo-elizondo-por-contribuciones-en-economia",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Wisconsin–Madison",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 15,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza por Doctorado Honoris Causa",
+          "url": "https://egade.tec.mx/es/blog/invisten-doctor-honoris-causa-everardo-elizondo-por-contribuciones-en-economia",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Estudios de doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "University of Wisconsin–Madison",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Candidato; grado no acreditado por la fuente",
+          "sourceOrder": 16,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza por Doctorado Honoris Causa",
+          "url": "https://egade.tec.mx/es/blog/invisten-doctor-honoris-causa-everardo-elizondo-por-contribuciones-en-economia",
+          "consultedAt": "2026-07-29",
+          "observations": "No se registra como doctorado concluido."
         }
       ],
       "profile": {
@@ -811,6 +1087,56 @@
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Nacional Autónoma de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 17,
+          "evidenceLevel": "Media",
+          "document": "Semblanza académica consolidada; requiere cotejo primario puntual",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "Stanford University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 18,
+          "evidenceLevel": "Media",
+          "document": "Semblanza académica consolidada; requiere cotejo primario puntual",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "Stanford University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 19,
+          "evidenceLevel": "Media",
+          "document": "Semblanza académica consolidada; requiere cotejo primario puntual",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B12C571AE-7083-4001-8B1F-CFABCF8C7761%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -879,6 +1205,24 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Estudios de Derecho",
+          "program": "Licenciatura en Derecho",
+          "institution": "Escuela Libre de Derecho",
+          "country": "México",
+          "year": 1974,
+          "status": "Concluida",
+          "sourceOrder": 20,
+          "evidenceLevel": "Alta",
+          "document": "Ratificación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BFC19D6BE-5603-7432-8018-754F78646642%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "La fuente reporta estudios de 1969 a 1974 y lo identifica como abogado egresado."
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 34.007543,
         "Experiencia Total Sector Privado": 11.920847,
@@ -925,6 +1269,72 @@
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Comunicado Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Economista egresado",
+          "program": "Licenciatura en Economía",
+          "institution": "Tecnológico de Monterrey",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 21,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Ciencias",
+          "program": "Maestría en Ciencias",
+          "institution": "University of Missouri",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 22,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 23,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 24,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -1002,6 +1412,56 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 25,
+          "evidenceLevel": "Alta",
+          "document": "Comunicado a la Junta de Gobernadores y Directorio Ejecutivo del FMI",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/discursos/%7BDA07267A-5D27-2C8A-6016-B95CB4B267CE%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Master of Arts",
+          "program": "Maestría en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 26,
+          "evidenceLevel": "Alta",
+          "document": "Comunicado a la Junta de Gobernadores y Directorio Ejecutivo del FMI",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/discursos/%7BDA07267A-5D27-2C8A-6016-B95CB4B267CE%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado",
+          "program": "Doctorado en Economía",
+          "institution": "University of Chicago",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 27,
+          "evidenceLevel": "Alta",
+          "document": "Comunicado a la Junta de Gobernadores y Directorio Ejecutivo del FMI",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/discursos/%7BDA07267A-5D27-2C8A-6016-B95CB4B267CE%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 29.503686,
         "Experiencia Total Sector Privado": 0.0,
@@ -1041,6 +1501,40 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 28,
+          "evidenceLevel": "Alta",
+          "document": "Designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BE52643A6-15AA-DB4C-24D8-8EE16B8212A9%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "Yale University",
+          "country": "Estados Unidos",
+          "year": 1993,
+          "status": "Concluido",
+          "sourceOrder": 29,
+          "evidenceLevel": "Alta",
+          "document": "Designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BE52643A6-15AA-DB4C-24D8-8EE16B8212A9%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 17.503439,
         "Experiencia Total Sector Privado": 0.0,
@@ -1078,6 +1572,56 @@
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Nacional Autónoma de México",
+          "country": "México",
+          "year": 1976,
+          "status": "Concluida con mención honorífica",
+          "sourceOrder": 30,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Javier Guzmán Calafell",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B764CC549-1D83-1A78-BA27-4EF99C3D53F0%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Estudios de maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "Université catholique de Louvain",
+          "country": "Bélgica",
+          "year": null,
+          "status": "Estudios reportados; grado individual no especificado",
+          "sourceOrder": 31,
+          "evidenceLevel": "Media",
+          "document": "Semblanza Javier Guzmán Calafell",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B764CC549-1D83-1A78-BA27-4EF99C3D53F0%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Estudios de maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "Yale University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Estudios reportados; grado individual no especificado",
+          "sourceOrder": 32,
+          "evidenceLevel": "Media",
+          "document": "Semblanza Javier Guzmán Calafell",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B764CC549-1D83-1A78-BA27-4EF99C3D53F0%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -1137,6 +1681,40 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 33,
+          "evidenceLevel": "Alta",
+          "document": "Designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B7CF208E3-6004-CCFE-C8E1-8E326E6EE4BB%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Administración Pública y Privada",
+          "program": "Maestría en Administración Pública y Privada",
+          "institution": "Yale University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 34,
+          "evidenceLevel": "Alta",
+          "document": "Designación como Subgobernador",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B7CF208E3-6004-CCFE-C8E1-8E326E6EE4BB%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 25.506342,
         "Experiencia Total Sector Privado": 0.0,
@@ -1185,6 +1763,40 @@
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 35,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Irene Espinosa Cantellano",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BCABC4A2D-8372-E0B9-D559-3EA0FCA8E7C4%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Políticas Públicas con especialidad en Evaluación Socioeconómica de Proyectos",
+          "program": "Maestría en Políticas Públicas",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 36,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Irene Espinosa Cantellano",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BCABC4A2D-8372-E0B9-D559-3EA0FCA8E7C4%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 29.503686,
         "Experiencia Total Sector Privado": 0.0,
@@ -1231,6 +1843,56 @@
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
           "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Nacional Autónoma de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 37,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como miembro de la Junta",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BD37EA8D9-E439-1416-06B2-539CF2DC3B90%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "El Colegio de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 38,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como miembro de la Junta",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BD37EA8D9-E439-1416-06B2-539CF2DC3B90%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "Harvard University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 39,
+          "evidenceLevel": "Alta",
+          "document": "Aprobación de designación como miembro de la Junta",
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7BD37EA8D9-E439-1416-06B2-539CF2DC3B90%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -1299,6 +1961,56 @@
           "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Anáhuac",
+          "country": "México",
+          "year": 1978,
+          "status": "Concluida con mención honorífica",
+          "sourceOrder": 40,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Jonathan Heath",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B3742ADFC-E578-8D8F-C9A9-6B51F362833E%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Pennsylvania",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 41,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Jonathan Heath",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B3742ADFC-E578-8D8F-C9A9-6B51F362833E%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 7,
+          "type": "Otro",
+          "originalProgram": "Exámenes doctorales en Economía Monetaria y Economía Internacional (sin tesis)",
+          "program": "Estudios doctorales sin tesis",
+          "institution": "University of Pennsylvania",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "No concluido como doctorado",
+          "sourceOrder": 42,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza Jonathan Heath",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B3742ADFC-E578-8D8F-C9A9-6B51F362833E%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": "Se conserva como estudios doctorales, no como grado de doctorado."
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 42.503268,
         "Experiencia Total Sector Privado": 42.503268,
@@ -1347,6 +2059,56 @@
           "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Matemáticas",
+          "program": "Licenciatura en Matemáticas",
+          "institution": "Universidad Nacional Autónoma de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 43,
+          "evidenceLevel": "Alta",
+          "document": "Dictamen de idoneidad",
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Master in Applied Mathematics and Statistics",
+          "program": "Maestría en Matemáticas Aplicadas y Estadística",
+          "institution": "Stony Brook University",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 44,
+          "evidenceLevel": "Alta",
+          "document": "Dictamen de idoneidad",
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía y Política Pública",
+          "program": "Maestría en Economía y Política Pública",
+          "institution": "Tecnológico de Monterrey",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 45,
+          "evidenceLevel": "Alta",
+          "document": "Dictamen de idoneidad",
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 20.000411,
         "Experiencia Total Sector Privado": 0.0,
@@ -1393,6 +2155,40 @@
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico / Senado",
           "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-"
+        }
+      ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Tecnológico de Monterrey",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 46,
+          "evidenceLevel": "Alta",
+          "document": "Currículum Victoria Rodríguez Ceja",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B13BCC5C5-DB4C-7E75-8D18-9271CABF9980%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Estudios de maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "El Colegio de México",
+          "country": "México",
+          "year": null,
+          "status": "Estudios concluidos; grado no afirmado por la fuente",
+          "sourceOrder": 47,
+          "evidenceLevel": "Alta",
+          "document": "Currículum Victoria Rodríguez Ceja",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7B13BCC5C5-DB4C-7E75-8D18-9271CABF9980%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
         }
       ],
       "profile": {
@@ -1452,6 +2248,24 @@
           "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Universidad Nacional Autónoma de México",
+          "country": "México",
+          "year": null,
+          "status": "Titulado",
+          "sourceOrder": 48,
+          "evidenceLevel": "Alta",
+          "document": "Dictamen de idoneidad",
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 14.045463,
         "Experiencia Total Sector Privado": 0.0,
@@ -1491,6 +2305,72 @@
           "url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados?created=2023-03-01&start=1910"
         }
       ],
+      "academic": [
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Ingeniería Industrial",
+          "program": "Licenciatura en Ingeniería Industrial",
+          "institution": "Universidad Autónoma del Estado de Morelos",
+          "country": "México",
+          "year": null,
+          "status": "Estudios reportados; grado no especificado",
+          "sourceOrder": 49,
+          "evidenceLevel": "Media",
+          "document": "Semblanza José Gabriel Cuadra García",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BED1CEF0A-303E-5AC5-2A1A-4C896E2CA415%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 1,
+          "type": "Licenciatura",
+          "originalProgram": "Licenciatura en Economía",
+          "program": "Licenciatura en Economía",
+          "institution": "Instituto Tecnológico Autónomo de México",
+          "country": "México",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 50,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza José Gabriel Cuadra García",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BED1CEF0A-303E-5AC5-2A1A-4C896E2CA415%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 2,
+          "type": "Maestría",
+          "originalProgram": "Maestría en Economía",
+          "program": "Maestría en Economía",
+          "institution": "University of Rochester",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluida",
+          "sourceOrder": 51,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza José Gabriel Cuadra García",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BED1CEF0A-303E-5AC5-2A1A-4C896E2CA415%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        },
+        {
+          "order": 4,
+          "type": "Doctorado",
+          "originalProgram": "Doctorado en Economía",
+          "program": "Doctorado en Economía",
+          "institution": "University of Rochester",
+          "country": "Estados Unidos",
+          "year": null,
+          "status": "Concluido",
+          "sourceOrder": 52,
+          "evidenceLevel": "Alta",
+          "document": "Semblanza José Gabriel Cuadra García",
+          "url": "https://www.banxico.org.mx/conociendo-banxico/d/%7BED1CEF0A-303E-5AC5-2A1A-4C896E2CA415%7D.pdf",
+          "consultedAt": "2026-07-29",
+          "observations": ""
+        }
+      ],
       "profile": {
         "Experiencia Total Previa": 27.097066,
         "Experiencia Total Sector Privado": 0.0,
@@ -1511,6 +2391,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1521,6 +2402,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1531,6 +2413,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1541,6 +2424,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1551,6 +2435,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1561,6 +2446,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1571,6 +2457,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     },
     {
@@ -1581,6 +2468,7 @@
       "active": false,
       "biography": "Incorporado para conservar evaluaciones históricas publicadas por Jonathan Heath.",
       "career": [],
+      "academic": [],
       "profile": {}
     }
   ],
