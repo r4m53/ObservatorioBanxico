@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AppBar, Box, Button, Chip, Container, Divider, Drawer,
-  FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs,
-  Toolbar, Tooltip, Typography
+  FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table,
+  TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography
 } from "@mui/material";
 import { ArrowBack, ArrowForward, Close, Download, RestartAlt } from "@mui/icons-material";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip as ChartTooltip, XAxis, YAxis, Legend } from "recharts";
@@ -86,7 +86,7 @@ function Welcome({ onEnter }: { onEnter: () => void }) {
 
 function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
   const { data, mode, sourceMode, edits, selectedBoards, activeBoard, selectBoard } = useRadarStore();
-  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const boardRefs = useRef<Record<string, HTMLTableRowElement | null>>({});
   const comparatorReady = useRef(false);
   const boardDates = data?.timeline ?? [];
   const activeIndex = boardDates.indexOf(activeBoard);
@@ -99,7 +99,7 @@ function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
       comparatorReady.current = true;
       return;
     }
-    if (activeBoard) cardRefs.current[activeBoard]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (activeBoard) boardRefs.current[activeBoard]?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [activeBoard]);
   if (!data) return null;
   return <Stack spacing={3}>
@@ -112,29 +112,40 @@ function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
     <HistoricalChart embedded />
     <Stack direction="row" gap={1} flexWrap="wrap">{selectedBoards.map((d,i)=><FormControl key={i} size="small" sx={{ minWidth: 190 }}><InputLabel>Comparación {String.fromCharCode(65+i)}</InputLabel><Select label={`Comparación ${String.fromCharCode(65+i)}`} value={d} onChange={e=>selectBoard(e.target.value)}>{boardDates.map(x=><MenuItem key={x} value={x}>{formatDate(x)}</MenuItem>)}</Select></FormControl>)}
     {selectedBoards.length<3 && <Button variant="outlined" onClick={()=>selectBoard(boardDates[Math.max(0,boardDates.length-121)])}>+ Agregar junta</Button>}</Stack>
-    <Box className="boards-list">{selectedBoards.map(date=><div key={date} ref={node=>{cardRefs.current[date]=node}}><BoardTable date={date} onPerson={onPerson} mode={mode} sourceMode={sourceMode} edits={edits} active={date===activeBoard} onActivate={()=>selectBoard(date)} /></div>)}</Box>
+    <Paper className="comparison-matrix">
+      <TableContainer><Table size="small" stickyHeader>
+        <TableHead><TableRow>
+          <TableCell>Persona</TableCell><TableCell>Cargo</TableCell><TableCell align="right">Total</TableCell>
+          {data.criteria.map(c=><TableCell align="right" key={c.id}><span className="column-label">{c.short}</span></TableCell>)}
+        </TableRow></TableHead>
+        <TableBody>{selectedBoards.map((date,index)=><BoardRows key={date} date={date} label={`Board ${String.fromCharCode(65+index)}`} onPerson={onPerson} mode={mode} sourceMode={sourceMode} edits={edits} active={date===activeBoard} onActivate={()=>selectBoard(date)} rowRef={node=>{boardRefs.current[date]=node}} />)}</TableBody>
+      </Table></TableContainer>
+    </Paper>
   </Stack>;
 }
 
-function BoardTable({date,onPerson,mode,sourceMode,edits,active,onActivate}:{date:string;onPerson:(p:Person)=>void;mode:EvaluationMode;sourceMode:EvaluationSourceMode;edits:Record<string,number>;active:boolean;onActivate:()=>void}) {
+function BoardRows({date,label,onPerson,mode,sourceMode,edits,active,onActivate,rowRef}:{date:string;label:string;onPerson:(p:Person)=>void;mode:EvaluationMode;sourceMode:EvaluationSourceMode;edits:Record<string,number>;active:boolean;onActivate:()=>void;rowRef:(node:HTMLTableRowElement|null)=>void}) {
   const data=useRadarStore(s=>s.data)!;
   const editScore=useRadarStore(s=>s.editScore);
   const board=nearestBoard(data,date);
-  if (!board) return <Paper className="board-panel" sx={{p:3}}><Typography color="warning.main">Información insuficiente: no existe una composición de Junta vigente para {formatDate(date)}.</Typography></Paper>;
+  if (!board) return <TableRow ref={rowRef}><TableCell colSpan={13}>Información insuficiente: no existe una composición de Junta vigente para {formatDate(date)}.</TableCell></TableRow>;
   const rows=board.members.map(name=>({name,person:data.people.find(p=>p.name===name),ev:evaluationFor(data,date,name,sourceMode)}));
   const averages=data.criteria.map(c=>average(rows.map(r=>r.ev ? effectiveScore(date,r.ev,c.id,edits) : null)));
   const avgTotal=average(rows.map(r=>r.ev ? evaluationTotal(data,date,r.ev,edits) : null));
   const contextColor=modeMeta[mode].color;
-  return <Paper className={`board-panel ${active?"board-active":""}`} onClick={onActivate} sx={{"--context-color":contextColor} as React.CSSProperties}>
-    <Box className="board-header"><Box><Typography variant="overline" sx={{color:contextColor}}>JUNTA DE GOBIERNO · {modeMeta[mode].title}</Typography><Typography variant="h4">{formatLongDate(date)}</Typography></Box>
-      <Box className="board-summary"><span>Gobernador<strong>{board.governor}</strong></span><span>Subgobernadores<strong>{board.members.filter(name=>name!==board.governor).join(", ")}</strong></span><span>Promedio general<strong>{formatScore(avgTotal)}</strong></span></Box>
-    </Box>
-    <Box className="members-list">{rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <Box className="member-card" key={name}>
-      <Box className="member-heading"><Box><Button className="person-link" onClick={event=>{event.stopPropagation();if(person)onPerson(person)}}>{name}</Button><small>{name===board.governor?"Gobernador":"Subgobernador"}</small></Box><Box className="member-total"><small>Total</small>{formatScore(total)}</Box></Box>
-      {!ev?<Typography color="warning.main">Información insuficiente para este origen</Typography>:<Box className="criteria-scores">{data.criteria.map(c=>{const original=ev.scores[c.id];const key=scoreEditKey(date,ev.id,c.id);const edited=key in edits;const value=effectiveScore(date,ev,c.id,edits);return <Box className={`criterion-score ${edited?"modified-score":""}`} key={c.id}><Tooltip title={c.name}><span>{c.short}</span></Tooltip><EditableScore value={value} edited={edited} onCommit={newValue=>original!=null&&editScore({boardDate:date,evaluationId:ev.id,person:name,criterionId:c.id,criterion:c.name,originalValue:original,newValue})}/></Box>})}</Box>}
-    </Box>})}</Box>
-    <Box className="averages-strip"><strong>PROMEDIO POR CRITERIO</strong>{data.criteria.map((c,i)=><span key={c.id}>{c.short}<b>{formatScore(averages[i])}</b></span>)}</Box>
-  </Paper>;
+  return <>
+    <TableRow ref={rowRef} className={`board-title-row ${active?"board-active":""}`} onClick={onActivate} sx={{"--context-color":contextColor} as React.CSSProperties}>
+      <TableCell colSpan={13}><span>{label} — {formatLongDate(date)}</span><strong>Promedio general {formatScore(avgTotal)}</strong></TableCell>
+    </TableRow>
+    {rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <TableRow key={name} className="person-row" onClick={onActivate}>
+      <TableCell><Button className="person-link" onClick={event=>{event.stopPropagation();if(person)onPerson(person)}}>{name}</Button></TableCell>
+      <TableCell>{name===board.governor?"Gobernador":"Subgobernador"}</TableCell>
+      <TableCell align="right" className="total-cell">{formatScore(total)}</TableCell>
+      {data.criteria.map(c=>{const original=ev?.scores[c.id];const key=ev?scoreEditKey(date,ev.id,c.id):"";const edited=key in edits;const value=ev?effectiveScore(date,ev,c.id,edits):null;return <TableCell align="right" key={c.id} className={edited?"modified-score":""}><EditableScore value={value} edited={edited} onCommit={newValue=>ev&&original!=null&&editScore({boardDate:date,evaluationId:ev.id,person:name,criterionId:c.id,criterion:c.name,originalValue:original,newValue})}/></TableCell>})}
+    </TableRow>})}
+    <TableRow className="board-average-row" onClick={onActivate}><TableCell colSpan={2}>Promedio de la Junta</TableCell><TableCell align="right">{formatScore(avgTotal)}</TableCell>{averages.map((value,index)=><TableCell align="right" key={data.criteria[index].id}>{formatScore(value)}</TableCell>)}</TableRow>
+    <TableRow className="board-separator"><TableCell colSpan={13}/></TableRow>
+  </>;
 }
 
 function EditableScore({value,edited,onCommit}:{value:number|null|undefined;edited:boolean;onCommit:(value:number)=>void}) {
