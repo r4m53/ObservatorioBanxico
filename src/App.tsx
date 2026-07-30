@@ -87,6 +87,7 @@ function Welcome({ onEnter }: { onEnter: () => void }) {
 function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
   const { data, mode, sourceMode, edits, selectedBoards, activeBoard, selectBoard } = useRadarStore();
   const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const comparatorReady = useRef(false);
   const boardDates = data?.timeline ?? [];
   const activeIndex = boardDates.indexOf(activeBoard);
   const navigate = (offset: number) => {
@@ -94,6 +95,10 @@ function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
     if (next) selectBoard(next);
   };
   useEffect(() => {
+    if (!comparatorReady.current) {
+      comparatorReady.current = true;
+      return;
+    }
     if (activeBoard) cardRefs.current[activeBoard]?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [activeBoard]);
   if (!data) return null;
