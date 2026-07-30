@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AppBar, Box, Button, Chip, Container, Divider, Drawer,
-  FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table,
-  TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Tooltip, Typography
+  FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs,
+  Toolbar, Tooltip, Typography
 } from "@mui/material";
-import { Close, Download, RestartAlt } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, Close, Download, RestartAlt } from "@mui/icons-material";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip as ChartTooltip, XAxis, YAxis, Legend } from "recharts";
 import { motion } from "framer-motion";
 import { average, effectiveScore, evaluationFor, evaluationTotal, loadData, nearestBoard, scoreEditKey } from "./data";
@@ -21,6 +21,10 @@ const modeMeta = {
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("es-MX", { month: "short", year: "numeric", timeZone: "UTC" });
+}
+
+function formatLongDate(date: string) {
+  return new Date(date).toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
 }
 
 function formatScore(value: number | null | undefined) {
@@ -81,18 +85,33 @@ function Welcome({ onEnter }: { onEnter: () => void }) {
 }
 
 function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
-  const { data, mode, sourceMode, edits, selectedBoards, selectBoard } = useRadarStore();
+  const { data, mode, sourceMode, edits, selectedBoards, activeBoard, selectBoard } = useRadarStore();
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
+  const boardDates = data?.timeline ?? [];
+  const activeIndex = boardDates.indexOf(activeBoard);
+  const navigate = (offset: number) => {
+    const next = boardDates[activeIndex + offset];
+    if (next) selectBoard(next);
+  };
+  useEffect(() => {
+    if (activeBoard) cardRefs.current[activeBoard]?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [activeBoard]);
   if (!data) return null;
-  const boardDates = data.timeline;
   return <Stack spacing={3}>
-    <Box><Typography variant="overline" color="primary">COMPARADOR HISTÓRICO</Typography><Typography variant="h3">La Junta, lado a lado</Typography><Typography color="text.secondary">Selecciona hasta tres cortes. No mostramos diferencias: la lectura queda en manos del usuario.</Typography></Box>
-    <Stack direction="row" gap={1} flexWrap="wrap">{selectedBoards.map((d,i)=><FormControl key={i} size="small" sx={{ minWidth: 190 }}><InputLabel>Junta {String.fromCharCode(65+i)}</InputLabel><Select label={`Junta ${String.fromCharCode(65+i)}`} value={d} onChange={e=>selectBoard(e.target.value)}>{boardDates.map(x=><MenuItem key={x} value={x}>{formatDate(x)}</MenuItem>)}</Select></FormControl>)}
+    <Box><Typography variant="overline" color="primary">COMPARADOR HISTÓRICO</Typography><Typography variant="h3">Evolución de la Junta</Typography><Typography color="text.secondary">Compara cortes históricos en vertical. La gráfica, el selector y la Junta activa permanecen sincronizados.</Typography></Box>
+    <Paper className="comparator-controls">
+      <FormControl size="small" sx={{ minWidth: 240 }}><InputLabel>Junta activa</InputLabel><Select label="Junta activa" value={activeBoard} onChange={e=>selectBoard(e.target.value)}>{boardDates.map(x=><MenuItem key={x} value={x}>{formatLongDate(x)}</MenuItem>)}</Select></FormControl>
+      <Button startIcon={<ArrowBack />} disabled={activeIndex <= 0} onClick={()=>navigate(-1)}>Junta anterior</Button>
+      <Button endIcon={<ArrowForward />} disabled={activeIndex < 0 || activeIndex >= boardDates.length-1} onClick={()=>navigate(1)}>Junta siguiente</Button>
+    </Paper>
+    <HistoricalChart embedded />
+    <Stack direction="row" gap={1} flexWrap="wrap">{selectedBoards.map((d,i)=><FormControl key={i} size="small" sx={{ minWidth: 190 }}><InputLabel>Comparación {String.fromCharCode(65+i)}</InputLabel><Select label={`Comparación ${String.fromCharCode(65+i)}`} value={d} onChange={e=>selectBoard(e.target.value)}>{boardDates.map(x=><MenuItem key={x} value={x}>{formatDate(x)}</MenuItem>)}</Select></FormControl>)}
     {selectedBoards.length<3 && <Button variant="outlined" onClick={()=>selectBoard(boardDates[Math.max(0,boardDates.length-121)])}>+ Agregar junta</Button>}</Stack>
-    <Box className="boards-grid">{selectedBoards.map(date=><BoardTable key={date} date={date} onPerson={onPerson} mode={mode} sourceMode={sourceMode} edits={edits} />)}</Box>
+    <Box className="boards-list">{selectedBoards.map(date=><div key={date} ref={node=>{cardRefs.current[date]=node}}><BoardTable date={date} onPerson={onPerson} mode={mode} sourceMode={sourceMode} edits={edits} active={date===activeBoard} onActivate={()=>selectBoard(date)} /></div>)}</Box>
   </Stack>;
 }
 
-function BoardTable({date,onPerson,mode,sourceMode,edits}:{date:string;onPerson:(p:Person)=>void;mode:EvaluationMode;sourceMode:EvaluationSourceMode;edits:Record<string,number>}) {
+function BoardTable({date,onPerson,mode,sourceMode,edits,active,onActivate}:{date:string;onPerson:(p:Person)=>void;mode:EvaluationMode;sourceMode:EvaluationSourceMode;edits:Record<string,number>;active:boolean;onActivate:()=>void}) {
   const data=useRadarStore(s=>s.data)!;
   const editScore=useRadarStore(s=>s.editScore);
   const board=nearestBoard(data,date);
@@ -101,11 +120,16 @@ function BoardTable({date,onPerson,mode,sourceMode,edits}:{date:string;onPerson:
   const averages=data.criteria.map(c=>average(rows.map(r=>r.ev ? effectiveScore(date,r.ev,c.id,edits) : null)));
   const avgTotal=average(rows.map(r=>r.ev ? evaluationTotal(data,date,r.ev,edits) : null));
   const contextColor=modeMeta[mode].color;
-  return <Paper className="board-panel" sx={{borderTop:`3px solid ${contextColor}`}}><Box className="board-header" sx={{boxShadow:`inset 4px 0 ${contextColor}`}}><Typography variant="overline" sx={{color:contextColor}}>JUNTA DE GOBIERNO</Typography><Typography variant="h5">{formatDate(date)}</Typography><Typography color="text.secondary">{board.governor}</Typography></Box>
-    <TableContainer><Table size="small" stickyHeader><TableHead><TableRow><TableCell>Integrante</TableCell><TableCell align="right">Total</TableCell>{data.criteria.map(c=><Tooltip title={c.name} key={c.id}><TableCell align="right">{c.short}</TableCell></Tooltip>)}</TableRow></TableHead>
-      <TableBody>{rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <TableRow key={name} hover><TableCell><Button className="person-link" onClick={()=>person&&onPerson(person)}>{name}</Button><small>{name===board.governor?"Gobernador":"Subgobernador"}</small>{!ev&&<small>Información insuficiente para este origen</small>}</TableCell><TableCell align="right" className="total-cell">{formatScore(total)}</TableCell>{data.criteria.map(c=>{const original=ev?.scores[c.id];const key=ev?scoreEditKey(date,ev.id,c.id):"";const edited=key in edits;const value=ev?effectiveScore(date,ev,c.id,edits):null;return <TableCell key={c.id} align="right" className={`${value==null?"":"score-cell"} ${edited?"modified-score":""}`}><EditableScore value={value} edited={edited} onCommit={newValue=>ev&&original!=null&&editScore({boardDate:date,evaluationId:ev.id,person:name,criterionId:c.id,criterion:c.name,originalValue:original,newValue})}/></TableCell>})}</TableRow>})}
-      <TableRow className="average-row" sx={{"& td":{color:contextColor}}}><TableCell>PROMEDIO</TableCell><TableCell align="right">{formatScore(avgTotal)}</TableCell>{averages.map((x,i)=><TableCell key={i} align="right">{formatScore(x)}</TableCell>)}</TableRow></TableBody>
-    </Table></TableContainer></Paper>;
+  return <Paper className={`board-panel ${active?"board-active":""}`} onClick={onActivate} sx={{"--context-color":contextColor} as React.CSSProperties}>
+    <Box className="board-header"><Box><Typography variant="overline" sx={{color:contextColor}}>JUNTA DE GOBIERNO · {modeMeta[mode].title}</Typography><Typography variant="h4">{formatLongDate(date)}</Typography></Box>
+      <Box className="board-summary"><span>Gobernador<strong>{board.governor}</strong></span><span>Subgobernadores<strong>{board.members.filter(name=>name!==board.governor).join(", ")}</strong></span><span>Promedio general<strong>{formatScore(avgTotal)}</strong></span></Box>
+    </Box>
+    <Box className="members-list">{rows.map(({name,person,ev})=>{const total=ev ? evaluationTotal(data,date,ev,edits) : null;return <Box className="member-card" key={name}>
+      <Box className="member-heading"><Box><Button className="person-link" onClick={event=>{event.stopPropagation();if(person)onPerson(person)}}>{name}</Button><small>{name===board.governor?"Gobernador":"Subgobernador"}</small></Box><Box className="member-total"><small>Total</small>{formatScore(total)}</Box></Box>
+      {!ev?<Typography color="warning.main">Información insuficiente para este origen</Typography>:<Box className="criteria-scores">{data.criteria.map(c=>{const original=ev.scores[c.id];const key=scoreEditKey(date,ev.id,c.id);const edited=key in edits;const value=effectiveScore(date,ev,c.id,edits);return <Box className={`criterion-score ${edited?"modified-score":""}`} key={c.id}><Tooltip title={c.name}><span>{c.short}</span></Tooltip><EditableScore value={value} edited={edited} onCommit={newValue=>original!=null&&editScore({boardDate:date,evaluationId:ev.id,person:name,criterionId:c.id,criterion:c.name,originalValue:original,newValue})}/></Box>})}</Box>}
+    </Box>})}</Box>
+    <Box className="averages-strip"><strong>PROMEDIO POR CRITERIO</strong>{data.criteria.map((c,i)=><span key={c.id}>{c.short}<b>{formatScore(averages[i])}</b></span>)}</Box>
+  </Paper>;
 }
 
 function EditableScore({value,edited,onCommit}:{value:number|null|undefined;edited:boolean;onCommit:(value:number)=>void}) {
@@ -118,8 +142,8 @@ function EditableScore({value,edited,onCommit}:{value:number|null|undefined;edit
   return <button className="score-value" onDoubleClick={begin} title="Doble clic para editar">{formatScore(value)}{edited&&<span className="edit-mark" aria-label="Modificada"> ✎</span>}</button>;
 }
 
-function HistoricalChart() {
-  const {data,mode,sourceMode,edits,selectBoard}=useRadarStore();
+function HistoricalChart({embedded=false}:{embedded?:boolean}) {
+  const {data,mode,sourceMode,edits,selectBoard,activeBoard}=useRadarStore();
   const series=useMemo(()=>data ? data.timeline.map(date=>{const board=nearestBoard(data,date);const evals=board?.members.map(n=>evaluationFor(data,date,n,sourceMode)).filter(Boolean) as Evaluation[]|undefined;const score=average(evals?.map(e=>evaluationTotal(data,date,e,edits))??[]);return {date,label:formatDate(date),score}}) : [],[data,sourceMode,edits]);
   if(!data)return null;
   const handleClick = (state: unknown) => {
@@ -127,7 +151,7 @@ function HistoricalChart() {
     if (payload?.date) selectBoard(payload.date);
   };
   const color=modeMeta[mode].color;
-  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar BM" subtitle="Haz clic en cualquier punto para llevar esa Junta al comparador."><ResponsiveContainer width="100%" height={470}><LineChart data={series} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter} contentStyle={{background:"#171717",border:`1px solid ${color}`}}/><Line type="monotone" dataKey="score" name="Radar BM" stroke={color} strokeWidth={2.5} dot={{r:3,fill:color}} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
+  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar BM" subtitle="Haz clic en cualquier punto para seleccionar y resaltar esa Junta."><ResponsiveContainer width="100%" height={embedded?330:470}><LineChart data={series} onClick={handleClick}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter} contentStyle={{background:"#171717",border:`1px solid ${color}`}}/><Line type="monotone" dataKey="score" name="Radar BM" stroke={color} strokeWidth={2.5} dot={({cx,cy,payload})=><circle cx={cx} cy={cy} r={payload.date===activeBoard?7:2.5} fill={payload.date===activeBoard?"#fff":color} stroke={color} strokeWidth={payload.date===activeBoard?3:0} onClick={()=>selectBoard(payload.date)} style={{cursor:"pointer"}}/>} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
 }
 
 function ExperienceChart() {
