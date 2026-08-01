@@ -56,7 +56,12 @@ export default function App() {
       <Route path="/decisiones" element={<DecisionsRadar />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
+    <PlatformFooter />
   </>;
+}
+
+function PlatformFooter() {
+  return <Box component="footer" className="platform-footer"><span>Fuentes: Banco de México · INEGI · Radar Monetario</span><span>v1.1.0</span></Box>;
 }
 
 function BrandLogo({ className = "" }: { className?: string }) {

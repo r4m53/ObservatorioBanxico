@@ -27,11 +27,12 @@ export default function DecisionsRadar() {
       <Box sx={{ flexGrow: 1 }}><img className="brand-logo header-logo" src={logoSrc} alt="RAdarMonetario · Señas y Expectativas" /></Box>
       <Typography className="decision-module-title">Radar de Decisiones · Junta BM</Typography>
     </Toolbar></AppBar>
-    <Tabs value={tab} onChange={(_, value) => setTab(value)} variant="scrollable" className="tabs decision-tabs"><Tab label="Decisiones" /><Tab label="Integrantes" /><Tab label="Histórico de integrantes" /></Tabs>
+    <Tabs value={tab} onChange={(_, value) => setTab(value)} variant="scrollable" className="tabs decision-tabs"><Tab label="Decisiones" /><Tab label="Integrantes" /><Tab label="Histórico de integrantes" /><Tab label="Metodología" /></Tabs>
     <Container maxWidth={false} sx={{ px: { xs: 1.5, md: 3 }, py: 3 }}>
       {tab === 0 && <DecisionsTab data={data} />}
       {tab === 1 && <MembersTab data={data} />}
       {tab === 2 && <HistoricalMembersTab data={data} />}
+      {tab === 3 && <DecisionsMethodology />}
     </Container>
   </Box>;
 }
@@ -104,6 +105,26 @@ function MembersTab({ data }: { data: DecisionsData }) {
     <Box className="member-bottom"><Box><SectionTitle>Disensos del integrante durante su periodo en la Junta</SectionTitle><TableContainer component={Paper}><Table size="small"><TableHead><TableRow><TableCell>Fecha</TableCell><TableCell>Tasa objetivo</TableCell><TableCell>Movimiento (pb)</TableCell><TableCell>Tipo de reunión</TableCell><TableCell>Tipo de disenso</TableCell></TableRow></TableHead><TableBody>{dissentVotes.map(({vote,decision:d}) => <TableRow key={d.Decision_ID}><TableCell>{fmtDate(d.Fecha_Decision)}</TableCell><TableCell>{fmtRate(d.Tasa_Nueva)}</TableCell><TableCell>{d.Cambio_pb}</TableCell><TableCell>{d.Tipo_Reunion}</TableCell><TableCell>{vote.Tipo_Voto}</TableCell></TableRow>)}</TableBody></Table></TableContainer></Box><Box><SectionTitle>Resumen estadístico</SectionTitle><MemberStats data={data} person={person} until={until} since={since} /></Box></Box>
   </Stack>;
 }
+
+function DecisionsMethodology() {
+  return <Stack spacing={3} className="decisions-methodology">
+    <Box><Typography variant="overline" color="primary">DOCUMENTACIÓN Y TRANSPARENCIA</Typography><Typography variant="h3">Metodología</Typography><Typography color="text.secondary" sx={{maxWidth:900}}>Referencia documental sobre el origen, tratamiento y alcance de la información presentada en Radar Monetario.</Typography></Box>
+    <Box className="methodology-grid">
+      <MethodologyCard title="Acerca de Radar Monetario"><Typography>Radar Monetario es una plataforma de análisis de política monetaria diseñada para facilitar la exploración histórica de las decisiones de la Junta de Gobierno del Banco de México.</Typography><Typography>Su objetivo es integrar información pública en herramientas visuales que permitan analizar decisiones, votaciones, experiencia de los integrantes y otros indicadores relevantes para el seguimiento de la política monetaria.</Typography></MethodologyCard>
+      <MethodologyCard title="Fuentes de información"><Typography>La plataforma utiliza exclusivamente información pública. No emplea información privada.</Typography><Box component="ul"><li>Banco de México.</li><li>INEGI, cuando corresponda.</li><li>Radar Monetario: integración, clasificación y visualización.</li></Box></MethodologyCard>
+      <MethodologyCard title="Frecuencia de actualización"><Typography>La plataforma se actualiza conforme se publica nueva información oficial: decisiones de política monetaria, comunicados y votos individuales cuando son públicos.</Typography><Typography>Versiones futuras incorporarán expectativas, inflación, consenso de analistas y nuevos módulos.</Typography></MethodologyCard>
+    </Box>
+    <MethodologyCard title="Definiciones metodológicas" wide><Box className="definitions-grid"><Definition term="Consenso">Todos los integrantes votan por la decisión aprobada.</Definition><Definition term="Disenso restrictivo">El integrante votó por una postura más restrictiva que la decisión mayoritaria.</Definition><Definition term="Disenso expansivo">El integrante votó por una postura más expansiva que la decisión mayoritaria.</Definition><Definition term="Voto no identificable">La información pública disponible no permite determinar de forma inequívoca el sentido del voto individual.</Definition></Box><Divider sx={{my:2}}/><Typography color="text.secondary">Los votos no identificables, ausencias, abstenciones y votos desconocidos no forman parte de las estadísticas individuales.</Typography></MethodologyCard>
+    <Box className="methodology-grid">
+      <MethodologyCard title="Limitaciones"><Typography>Radar Monetario busca reproducir fielmente la información pública disponible. Algunas clasificaciones requieren interpretación a partir de comunicados oficiales y otros documentos publicados por Banco de México.</Typography><Typography>Cuando la evidencia no permite identificar con certeza el sentido de un voto, se clasifica como “No identificable” y no se incorpora a los indicadores individuales. La plataforma permanece en revisión y actualización continua.</Typography></MethodologyCard>
+      <MethodologyCard title="Inteligencia artificial"><Typography>El desarrollo de Radar Monetario ha sido asistido mediante herramientas de inteligencia artificial para acelerar tareas de programación, estructuración y validación de información.</Typography><Typography>Todas las metodologías, criterios de clasificación y resultados son revisados antes de su publicación. La responsabilidad sobre la interpretación y presentación final corresponde a Radar Monetario.</Typography></MethodologyCard>
+      <MethodologyCard title="Descargo de responsabilidad"><Typography>La información presentada tiene fines informativos y analíticos. Aunque se realizan esfuerzos continuos para mantenerla actualizada y correcta, pueden existir errores u omisiones.</Typography><Typography>En caso de discrepancia, la referencia oficial es siempre la información publicada por Banco de México y las demás instituciones correspondientes.</Typography></MethodologyCard>
+    </Box>
+    <SectionTitle>Historial de versiones</SectionTitle><TableContainer component={Paper}><Table size="small"><TableHead><TableRow><TableCell>Versión</TableCell><TableCell>Fecha</TableCell><TableCell>Cambios principales</TableCell></TableRow></TableHead><TableBody><TableRow><TableCell>1.0.0</TableCell><TableCell>Julio 2026</TableCell><TableCell>Radar de Experiencia y arquitectura inicial de la plataforma.</TableCell></TableRow><TableRow><TableCell>1.1.0</TableCell><TableCell>Agosto 2026</TableCell><TableCell>Radar de Decisiones, análisis por integrante, histórico comparativo y documentación metodológica.</TableCell></TableRow></TableBody></Table></TableContainer>
+  </Stack>;
+}
+function MethodologyCard({title,children,wide=false}:{title:string;children:React.ReactNode;wide?:boolean}){return <Paper className={`methodology-card ${wide?"methodology-wide":""}`}><Typography variant="overline" color="primary">{title}</Typography><Stack spacing={1.2} color="text.secondary">{children}</Stack></Paper>}
+function Definition({term,children}:{term:string;children:React.ReactNode}){return <Box className="definition"><Typography fontWeight={800}>{term}</Typography><Typography color="text.secondary">{children}</Typography></Box>}
 
 type HistoricalMetric = "dissentRate" | "hawkRate" | "doveRate";
 type HistoricalWindow = "all" | "12m" | "5y" | "10y" | "custom";
