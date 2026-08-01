@@ -8,6 +8,7 @@ import { loadDecisionsData, validVote, voteSymbol, type Decision, type Decisions
 const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 const fmtDate = (value: string) => new Date(`${value}T00:00:00`).toLocaleDateString("es-MX", { day: "2-digit", month: "short", year: "numeric" });
 const fmtShort = (value: string) => new Date(`${value}T00:00:00`).toLocaleDateString("es-MX", { day: "2-digit", month: "short" });
+const fmtMonthYear = (value: string) => new Date(`${value}T00:00:00`).toLocaleDateString("es-MX", { month: "short", year: "numeric" });
 const fmtRate = (value: number | null) => value == null ? "No disponible" : `${value.toFixed(2)}%`;
 const pct = (value: number) => `${(value * 100).toFixed(1)}%`;
 const chartTooltip = { background: "#111", border: "1px solid #f28c28", borderRadius: 2 };
@@ -39,7 +40,7 @@ function DecisionChart({ data, activeId, onSelect, member = false }: { data: Gra
   const visible = data.filter(point => point.Tasa_Objetivo > 0);
   return <Paper className="decision-chart"><Typography variant="overline" color="primary">{member ? "HISTORIA DEL INTEGRANTE" : "HISTORIA DE DECISIONES MONETARIAS Y DISENSOS"}</Typography>
     <ResponsiveContainer width="100%" height={330}><ComposedChart data={visible} onClick={(state: unknown) => { const item=(state as {activePayload?:Array<{payload?:GraphPoint}>})?.activePayload?.[0]?.payload; if(item && onSelect) onSelect(item.Decision_ID); }}>
-      <CartesianGrid stroke="#262626"/><XAxis dataKey="Fecha" tickFormatter={fmtShort} minTickGap={38}/><YAxis yAxisId="rate" tickFormatter={(v:number)=>`${v}%`}/><YAxis yAxisId="votes" orientation="right" domain={[0, member ? 1 : 2]} allowDecimals={false}/>
+      <CartesianGrid stroke="#262626"/><XAxis dataKey="Fecha" tickFormatter={fmtMonthYear} minTickGap={38}/><YAxis yAxisId="rate" tickFormatter={(v:number)=>`${v}%`}/><YAxis yAxisId="votes" orientation="right" domain={[0, member ? 1 : 2]} allowDecimals={false}/>
       <Tooltip labelFormatter={(v)=>fmtDate(String(v))} contentStyle={chartTooltip}/><Legend/>
       <Bar yAxisId="votes" dataKey="Disensos_Hawk" name="Disensos restrictivos" stackId="votes" fill="#f28c28" />
       <Bar yAxisId="votes" dataKey="Disensos_Dovish" name="Disensos expansivos" stackId="votes" fill="#4da3ff" />
