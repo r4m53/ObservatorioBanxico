@@ -13,6 +13,7 @@ import { orange } from "./theme";
 import type { Evaluation, EvaluationMode, EvaluationSourceMode, Person } from "./types";
 import { exportPdf } from "./pdf";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import DecisionsRadar from "./decisions";
 
 const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
@@ -52,6 +53,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/experiencia" element={<ExperienceRadar />} />
+      <Route path="/decisiones" element={<DecisionsRadar />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   </>;
@@ -67,7 +69,7 @@ function SplashScreen() {
 
 const modules = [
   { title: "Radar de experiencia · Junta BM", status: "Disponible", description: "Explorador histórico de experiencia profesional de los integrantes de la Junta de Gobierno.", path: "/experiencia", available: true },
-  { title: "Radar de decisiones · Junta BM", status: "Próximamente", description: "Seguimiento y análisis de las decisiones de política monetaria de la Junta de Gobierno.", available: false },
+  { title: "Radar de decisiones · Junta BM", status: "Disponible", description: "Seguimiento histórico de decisiones, votaciones y disensos de la Junta de Gobierno.", path: "/decisiones", available: true },
 ];
 
 function Home() {

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "publish:data": "python scripts/extract_workbook.py",
-    "validate:data": "python scripts/validate_timeline.py"
+    "validate:data": "python scripts/validate_timeline.py",
+    "publish:decisions": "python scripts/extract_decisions_workbook.py"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
