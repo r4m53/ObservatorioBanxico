@@ -38,13 +38,13 @@ function RadarDocument({
       ? "EVALUACIÓN PERSONALIZADA"
       : mode === "heath"
         ? "CALIFICACIONES PUBLICADAS / RECONSTRUIDAS DE HEATH"
-        : "EVALUACIÓN OBSERVATORIO BANXICO";
+        : "EVALUACIÓN RAdarMonetario";
   const contextColor = mode === "custom" ? "#f28c28" : mode === "heath" ? "#4da3ff" : "#33c37d";
 
   return (
     <Document>
       <Page size="A4" orientation="landscape" style={styles.page}>
-        <Text style={styles.brand}>OBSERVATORIO BANXICO</Text>
+        <Text style={styles.brand}>RAdarMonetario</Text>
         <Text style={styles.title}>Radar BM · Comparador de Juntas</Text>
         <Text>Evaluación histórica de la Junta de Gobierno del Banco de México</Text>
         <Text style={[styles.banner, { backgroundColor: contextColor }]}>{label}</Text>
@@ -91,7 +91,7 @@ function RadarDocument({
         <Text style={styles.footer}>
           Radar BM · {label} · Hash exportación {evaluationHash} · Hash sesión {sessionHash || "calculando"} · * valor modificado · Generado{" "}
           {new Date().toLocaleString("es-MX")} · Las calificaciones personalizadas no
-          representan al Observatorio Banxico.
+          representan al RAdarMonetario.
         </Text>
       </Page>
     </Document>

@@ -7,7 +7,7 @@
 - El indicador Oficial / Heath / Mi evaluación ahora permanece sticky bajo la barra principal.
 - El drawer incorpora las pestañas Trayectoria profesional y Formación académica.
 - Las experiencias se clasifican de forma reproducible por institución, cargo y descripción en Política monetaria, Finanzas públicas, Ambas o No computa.
-- La metodología distingue la propuesta original de Jonathan Heath de la adaptación del Observatorio Banxico.
+- La metodología distingue la propuesta original de Jonathan Heath de la adaptación del RAdarMonetario.
 - Se agregó transparencia sobre inteligencia artificial, revisión continua y changelog.
 
 ## Decisiones de diseño

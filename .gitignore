@@ -5,3 +5,5 @@ dist/
 .DS_Store
 *.log
 _legacy_*/
+__pycache__/
+*.py[cod]

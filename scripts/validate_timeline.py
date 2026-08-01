@@ -10,7 +10,7 @@ from openpyxl import load_workbook
 
 
 ROOT = Path(__file__).resolve().parents[1]
-WORKBOOK = ROOT / "data" / "master" / "Observatorio_Banxico_Indice_Heath_FINAL_CORREGIDO.xlsm"
+WORKBOOK = ROOT / "data" / "master" / "RAdarMonetario_Indice_Heath_FINAL_CORREGIDO_v20260729.xlsm"
 DATASET = ROOT / "public" / "data" / "radar-bm.json"
 
 

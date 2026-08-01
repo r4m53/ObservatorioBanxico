@@ -6,7 +6,7 @@ import json, os, sys
 from openpyxl import load_workbook
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = Path(os.environ.get("RADAR_BM_SOURCE", ROOT / "data" / "master" / "Observatorio_Banxico_Indice_Heath_FINAL_CORREGIDO_v20260729.xlsm"))
+SOURCE = Path(os.environ.get("RADAR_BM_SOURCE", ROOT / "data" / "master" / "RAdarMonetario_Indice_Heath_FINAL_CORREGIDO_v20260729.xlsm"))
 OUTPUT = ROOT / "public" / "data" / "radar-bm.json"
 ACADEMIC_VALIDATION_OUTPUT = ROOT / "public" / "data" / "academic-validation.json"
 ACADEMIC_ORDERS = {
@@ -32,6 +32,18 @@ def num(v):
     try: return round(float(v), 6)
     except (TypeError,ValueError): return None
 
+def rebrand(value):
+    """Keep generated public data aligned with the definitive project name."""
+    if isinstance(value, str):
+        legacy_labels = ("Observatorio" + " " + "Banxico", "Observatorio" + "Banxico", "Observatorio" + "_" + "Banxico")
+        for legacy_label in legacy_labels:
+            value = value.replace(legacy_label, "RAdarMonetario")
+        return value
+    if isinstance(value, list):
+        return [rebrand(item) for item in value]
+    if isinstance(value, dict):
+        return {key: rebrand(item) for key, item in value.items()}
+    return value
 def academic_catalog(wb, people_raw):
     if "Formacion_Academica" not in wb.sheetnames:
         raise ValueError("El libro maestro no contiene la hoja Formacion_Academica")
@@ -125,7 +137,7 @@ def main():
         name=r["Nombre_Canonico"]
         p=profiles.get(name,{})
         profile={str(k):num(v) if isinstance(v,(int,float)) else (iso(v) if isinstance(v,datetime) else str(v or "")) for k,v in p.items() if k!="Persona"}
-        people.append({"id":pid,"name":name,"firstBoardDate":iso(r["Primera_Fecha_Junta"]),"lastBoardDate":iso(r["Ultima_Fecha_Junta"]),"active":str(r["Activo_Junta"]).lower()=="sí","biography":r["Observaciones"] or "Perfil curricular documentado en el libro maestro del Observatorio Banxico.","career":career.get(name,[]),"academic":academic.get(pid,[]),"profile":profile})
+        people.append({"id":pid,"name":name,"firstBoardDate":iso(r["Primera_Fecha_Junta"]),"lastBoardDate":iso(r["Ultima_Fecha_Junta"]),"active":str(r["Activo_Junta"]).lower()=="sí","biography":r["Observaciones"] or "Perfil curricular documentado en el libro maestro del RAdarMonetario.","career":career.get(name,[]),"academic":academic.get(pid,[]),"profile":profile})
     details=defaultdict(dict); detail_notes=defaultdict(dict)
     for r in rows(wb["Heath_Detalle"]):
         score=num(r["Calificacion"])
@@ -147,7 +159,7 @@ def main():
         if not vals[0]: continue
         exp.append({"date":iso(vals[0]),"total":num(vals[1]),"fiscal":num(vals[2]),"monetary":num(vals[3])})
     timeline=comparador_timeline(wb)
-    payload={"metadata":{"generatedAt":datetime.now().isoformat(timespec="seconds"),"source":SOURCE.name,"latestDate":timeline[-1],"timelineSource":"Excel: MonthlyDates (Comparador → Monthly_Experience!A3:A)","academicSource":"Excel: Formacion_Academica (relación exclusiva por Persona_ID)","academicValidation":{"records":sum(len(records) for records in academic.values()),"peopleWithRecords":sum(1 for records in academic.values() if records),"issues":len(academic_issues)}},"timeline":timeline,"criteria":criteria,"people":people,"boards":boards,"evaluations":evaluations,"experience":exp}
+    payload=rebrand({"metadata":{"generatedAt":datetime.now().isoformat(timespec="seconds"),"source":SOURCE.name,"latestDate":timeline[-1],"timelineSource":"Excel: MonthlyDates (Comparador → Monthly_Experience!A3:A)","academicSource":"Excel: Formacion_Academica (relación exclusiva por Persona_ID)","academicValidation":{"records":sum(len(records) for records in academic.values()),"peopleWithRecords":sum(1 for records in academic.values() if records),"issues":len(academic_issues)}},"timeline":timeline,"criteria":criteria,"people":people,"boards":boards,"evaluations":evaluations,"experience":exp})
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
     OUTPUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
     ACADEMIC_VALIDATION_OUTPUT.write_text(json.dumps({"source":SOURCE.name,"generatedAt":datetime.now().isoformat(timespec="seconds"),"issues":academic_issues},ensure_ascii=False,indent=2),encoding="utf-8")

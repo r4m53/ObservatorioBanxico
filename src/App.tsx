@@ -14,7 +14,7 @@ import type { Evaluation, EvaluationMode, EvaluationSourceMode, Person } from ".
 import { exportPdf } from "./pdf";
 
 const modeMeta = {
-  official: { color: "#33c37d", title: "🟢 Oficial", text: "Visualizando la evaluación oficial del Observatorio Banxico." },
+  official: { color: "#33c37d", title: "🟢 Oficial", text: "Visualizando la evaluación oficial del RAdarMonetario." },
   heath: { color: "#4da3ff", title: "🔵 Reconstrucción Heath", text: "Visualizando la reconstrucción de las calificaciones publicadas por Jonathan Heath." },
   custom: { color: orange, title: "🟠 Mi evaluación", text: "Está visualizando una evaluación personalizada." },
 } as const;
@@ -49,7 +49,7 @@ export default function App() {
   return <Box>
     <AppBar position="sticky" elevation={0} color="transparent" sx={{ backdropFilter: "blur(14px)", borderBottom: "1px solid #282828" }}>
       <Toolbar sx={{ gap: 2 }}>
-        <Box sx={{ flexGrow: 1 }}><Typography className="brand">OBSERVATORIO BANXICO</Typography><Typography variant="h6">Radar BM</Typography></Box>
+        <Box sx={{ flexGrow: 1 }}><Typography className="brand">RAdarMonetario</Typography><Typography variant="h6">Radar BM</Typography></Box>
         <Button startIcon={<Download />} onClick={() => exportPdf(data, selectedBoards, mode, sourceMode, edits, evaluationHash)}>Exportar PDF</Button>
       </Toolbar>
     </AppBar>
@@ -76,11 +76,11 @@ export default function App() {
 
 function Welcome({ onEnter }: { onEnter: () => void }) {
   return <Box className="welcome"><Box className="welcome-grid" /><motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-    <Typography className="brand">OBSERVATORIO BANXICO</Typography>
+    <Typography className="brand">RAdarMonetario</Typography>
     <Typography variant="h1" sx={{ fontSize: { xs: 58, md: 102 }, lineHeight: .9, my: 3 }}>Radar <span>BM</span></Typography>
     <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 720 }}>Una lectura histórica, comparable y transparente del perfil técnico e institucional de la Junta de Gobierno.</Typography>
     <Button variant="contained" size="large" onClick={onEnter} sx={{ mt: 5, color: "#111" }}>Explorar las juntas</Button>
-    <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 720 }}>Metodología desarrollada por Observatorio Banxico a partir de los criterios publicados por Jonathan Heath. Las reconstrucciones y ampliaciones son responsabilidad exclusiva del Observatorio.</Typography>
+    <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 720 }}>Metodología desarrollada por RAdarMonetario a partir de los criterios publicados por Jonathan Heath. Las reconstrucciones y ampliaciones son responsabilidad exclusiva del Observatorio.</Typography>
   </motion.div></Box>;
 }
 
@@ -182,11 +182,11 @@ function Methodology(){const data=useRadarStore(s=>s.data)!;return <Stack spacin
   <Box><Typography variant="overline" color="primary">METODOLOGÍA Y TRANSPARENCIA</Typography><Typography variant="h3">Cómo leer Radar BM</Typography></Box>
   <Box className="method-grid">
     <Paper sx={{p:3}}><Typography variant="h5">Metodología original</Typography><Typography color="text.secondary" sx={{mt:1}}>Jonathan Heath, economista y subgobernador del Banco de México, publicó criterios para analizar perfiles de integrantes de la Junta de Gobierno. Su propósito y contexto originales corresponden a esas publicaciones y ejercicios públicos, cuyas calificaciones se preservan en el archivo histórico y en los metadatos de cada evaluación.</Typography><Typography color="text.secondary" sx={{mt:1}}>La propuesta original no fue diseñada como una serie mensual exhaustiva ni como una evaluación oficial del Banco de México; su cobertura depende de la información y de los cortes publicados.</Typography></Paper>
-    <Paper sx={{p:3}}><Typography variant="h5">Adaptación Observatorio Banxico</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar BM adapta esos criterios para consultar y comparar históricamente la integración de las Juntas de Gobierno. La reconstrucción temporal, las ampliaciones, las estimaciones y la aplicación retrospectiva son responsabilidad exclusiva del Observatorio Banxico y pueden diferir del propósito original de Jonathan Heath.</Typography></Paper>
-    <Paper sx={{p:3}}><Typography variant="h5">Fuentes, supuestos y limitaciones</Typography><Typography color="text.secondary" sx={{mt:1}}>La fuente principal es el libro histórico auditado del Observatorio Banxico. Los meses intermedios extienden la última evaluación vigente sólo cuando no existe evidencia de cambio. La disponibilidad de perfiles, fuentes y calificaciones varía por periodo; los valores ausentes no se tratan como cero. Una reconstrucción no sustituye una evaluación publicada y toda incertidumbre debe interpretarse con cautela.</Typography></Paper>
+    <Paper sx={{p:3}}><Typography variant="h5">Adaptación RAdarMonetario</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar BM adapta esos criterios para consultar y comparar históricamente la integración de las Juntas de Gobierno. La reconstrucción temporal, las ampliaciones, las estimaciones y la aplicación retrospectiva son responsabilidad exclusiva del RAdarMonetario y pueden diferir del propósito original de Jonathan Heath.</Typography></Paper>
+    <Paper sx={{p:3}}><Typography variant="h5">Fuentes, supuestos y limitaciones</Typography><Typography color="text.secondary" sx={{mt:1}}>La fuente principal es el libro histórico auditado del RAdarMonetario. Los meses intermedios extienden la última evaluación vigente sólo cuando no existe evidencia de cambio. La disponibilidad de perfiles, fuentes y calificaciones varía por periodo; los valores ausentes no se tratan como cero. Una reconstrucción no sustituye una evaluación publicada y toda incertidumbre debe interpretarse con cautela.</Typography></Paper>
   </Box>
   <Box className="criteria-grid">{data.criteria.map(c=><Paper key={c.id} sx={{p:3}}><Typography color="primary">{String(c.number).padStart(2,"0")}</Typography><Typography variant="h6">{c.name}</Typography><Typography color="text.secondary">{c.definition}</Typography><Chip size="small" label={c.nature} sx={{mt:2}}/></Paper>)}</Box>
-  <Paper sx={{p:3}}><Typography variant="overline" color="primary">TRANSPARENCIA</Typography><Typography variant="h5">Uso de inteligencia artificial</Typography><Typography color="text.secondary" sx={{mt:1}}>Se utilizó inteligencia artificial como apoyo para programación, documentación, revisión y validación. La selección de fuentes, las decisiones metodológicas, las calificaciones y la responsabilidad final del contenido corresponden al Observatorio Banxico.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Revisión continua</Typography><Typography color="text.secondary" sx={{mt:1}}>La base histórica permanece bajo revisión continua. La aparición de nuevas fuentes puede motivar precisiones o correcciones, que deberán documentarse sin cambios silenciosos.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Changelog</Typography><Typography color="text.secondary" sx={{mt:1}}>RC1: refinamiento del comparador, persistencia del indicador de evaluación, drawer estructurado y ampliación metodológica. Las correcciones futuras se incorporarán aquí con fecha, evidencia y efecto sobre la serie.</Typography></Paper>
+  <Paper sx={{p:3}}><Typography variant="overline" color="primary">TRANSPARENCIA</Typography><Typography variant="h5">Uso de inteligencia artificial</Typography><Typography color="text.secondary" sx={{mt:1}}>Se utilizó inteligencia artificial como apoyo para programación, documentación, revisión y validación. La selección de fuentes, las decisiones metodológicas, las calificaciones y la responsabilidad final del contenido corresponden al RAdarMonetario.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Revisión continua</Typography><Typography color="text.secondary" sx={{mt:1}}>La base histórica permanece bajo revisión continua. La aparición de nuevas fuentes puede motivar precisiones o correcciones, que deberán documentarse sin cambios silenciosos.</Typography><Divider sx={{my:2}}/><Typography variant="h5">Changelog</Typography><Typography color="text.secondary" sx={{mt:1}}>RC1: refinamiento del comparador, persistencia del indicador de evaluación, drawer estructurado y ampliación metodológica. Las correcciones futuras se incorporarán aquí con fecha, evidencia y efecto sobre la serie.</Typography></Paper>
 </Stack>}
 
 function careerCategory(entry: Person["career"][number]) {

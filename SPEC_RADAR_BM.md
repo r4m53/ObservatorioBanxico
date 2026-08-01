@@ -2,7 +2,7 @@
 
 ## Propósito
 
-Radar BM transforma el libro maestro del Observatorio Banxico en una aplicación pública, estática y transparente. Permite comparar hasta tres composiciones históricas de la Junta de Gobierno, consultar las diez subcalificaciones, explorar perfiles, observar series y ensayar evaluaciones personalizadas.
+Radar BM transforma el libro maestro del RAdarMonetario en una aplicación pública, estática y transparente. Permite comparar hasta tres composiciones históricas de la Junta de Gobierno, consultar las diez subcalificaciones, explorar perfiles, observar series y ensayar evaluaciones personalizadas.
 
 ## Principios
 

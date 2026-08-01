@@ -1,4 +1,4 @@
-name: Deploy Radar BM
+name: Deploy RAdarMonetario
 on:
   push:
     branches: [main]
