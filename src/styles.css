@@ -1,6 +1,12 @@
 :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b0b0b}
 .loading{height:100vh;display:grid;place-items:center;color:#f28c28;letter-spacing:.2em}
 .brand{font-size:.68rem!important;letter-spacing:.22em!important;color:#f28c28;font-weight:800!important}
+.brand-logo{display:block;max-width:100%;object-fit:contain}
+.splash{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#031426;pointer-events:none}.splash-logo{width:min(760px,82vw)}
+.home{min-height:100vh;position:relative;overflow:hidden;background:radial-gradient(circle at 78% 12%,#2b1c0f 0,transparent 31%),#0b0b0b}.home-content{position:relative;z-index:1;padding-top:clamp(36px,6vw,82px);padding-bottom:72px}.home-logo{width:min(650px,88vw);margin-bottom:54px}
+.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.module-card{min-height:245px;padding:28px;display:flex;flex-direction:column;gap:22px}.module-card>p{flex:1}
+.upcoming-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.upcoming-card{padding:18px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between;opacity:.68}
+.header-logo{width:230px;height:50px;object-position:left center}
 .welcome{min-height:100vh;display:flex;align-items:center;padding:8vw;position:relative;overflow:hidden;background:radial-gradient(circle at 75% 20%,#2b1c0f 0,transparent 34%),#0b0b0b}
 .welcome>div:not(.welcome-grid){position:relative;z-index:1}.welcome h1 span{color:#f28c28}
 .welcome-grid{position:absolute;inset:0;background-image:linear-gradient(#ffffff08 1px,transparent 1px),linear-gradient(90deg,#ffffff08 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to right,black,transparent)}
@@ -25,5 +31,5 @@
 .drawer-head{display:flex;justify-content:space-between;padding:24px 24px 12px}.drawer-tabs{border-top:1px solid #292929;border-bottom:1px solid #292929;position:sticky;top:0;z-index:2}.drawer-content{padding:24px}
 .career{border-left:2px solid #f28c28;padding-left:14px}.career-tag{border:1px solid #444}.tag-política-monetaria{color:#4da3ff!important}.tag-finanzas-públicas{color:#33c37d!important}.tag-ambas{color:#f28c28!important}.tag-no-computa{color:#aaa!important}
 .academic-row{display:grid;grid-template-columns:140px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid #292929}.academic-row span{color:#888}.academic-row strong{font-weight:600}
-@media(max-width:1100px){.comparison-matrix .MuiTableContainer-root{overflow-x:auto}.comparison-matrix table{min-width:1120px}.method-grid{grid-template-columns:1fr}}
-@media(max-width:700px){.status{align-items:flex-start;flex-wrap:wrap;padding:10px 14px;top:56px}.tabs{top:151px}.welcome{padding:28px}.welcome h1{font-size:64px!important}.comparison-matrix .MuiTableContainer-root{max-height:70vh}.drawer-content{padding:18px}.academic-row{grid-template-columns:1fr;gap:4px}}
+@media(max-width:1100px){.upcoming-grid{grid-template-columns:repeat(2,1fr)}.comparison-matrix .MuiTableContainer-root{overflow-x:auto}.comparison-matrix table{min-width:1120px}.method-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.module-grid,.upcoming-grid{grid-template-columns:1fr}.home-logo{margin-bottom:38px}.module-card{min-height:220px;padding:22px}.header-logo{width:170px;height:42px}.status{align-items:flex-start;flex-wrap:wrap;padding:10px 14px;top:56px}.tabs{top:151px}.welcome{padding:28px}.welcome h1{font-size:64px!important}.comparison-matrix .MuiTableContainer-root{max-height:70vh}.drawer-content{padding:18px}.academic-row{grid-template-columns:1fr;gap:4px}}

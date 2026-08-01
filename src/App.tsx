@@ -4,7 +4,7 @@ import {
   FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table,
   TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography
 } from "@mui/material";
-import { ArrowBack, ArrowForward, Close, Download, RestartAlt } from "@mui/icons-material";
+import { ArrowBack, ArrowForward, Close, Download, Home as HomeIcon, RestartAlt } from "@mui/icons-material";
 import { Line, LineChart, CartesianGrid, ResponsiveContainer, Tooltip as ChartTooltip, XAxis, YAxis, Legend } from "recharts";
 import { motion } from "framer-motion";
 import { average, effectiveScore, evaluationFor, evaluationTotal, loadData, nearestBoard, scoreEditKey } from "./data";
@@ -12,6 +12,9 @@ import { useRadarStore } from "./store";
 import { orange } from "./theme";
 import type { Evaluation, EvaluationMode, EvaluationSourceMode, Person } from "./types";
 import { exportPdf } from "./pdf";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+
+const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
 
 const modeMeta = {
   official: { color: "#33c37d", title: "🟢 Oficial", text: "Visualizando la evaluación oficial del RAdarMonetario." },
@@ -37,19 +40,66 @@ const tooltipFormatter = (value: unknown) => {
 };
 
 export default function App() {
+  const [showSplash, setShowSplash] = useState(() => sessionStorage.getItem("radarmonetario-splash") !== "seen");
+  useEffect(() => {
+    if (!showSplash) return;
+    sessionStorage.setItem("radarmonetario-splash", "seen");
+    const timer = window.setTimeout(() => setShowSplash(false), 2600);
+    return () => window.clearTimeout(timer);
+  }, [showSplash]);
+  return <>
+    {showSplash && <SplashScreen />}
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/experiencia" element={<ExperienceRadar />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  </>;
+}
+
+function BrandLogo({ className = "" }: { className?: string }) {
+  return <img className={`brand-logo ${className}`} src={logoSrc} alt="RAdarMonetario · Señas y Expectativas" />;
+}
+
+function SplashScreen() {
+  return <motion.div className="splash" initial={{ opacity: 0 }} animate={{ opacity: [0, 1, 1, 0] }} transition={{ duration: 2.6, times: [0, .18, .76, 1] }}><BrandLogo className="splash-logo" /></motion.div>;
+}
+
+const modules = [
+  { title: "Radar de experiencia · Junta BM", status: "Disponible", description: "Explorador histórico de experiencia profesional de los integrantes de la Junta de Gobierno.", path: "/experiencia", available: true },
+  { title: "Radar de decisiones · Junta BM", status: "Próximamente", description: "Seguimiento y análisis de las decisiones de política monetaria de la Junta de Gobierno.", available: false },
+];
+
+function Home() {
+  const navigate = useNavigate();
+  return <Box className="home"><Box className="welcome-grid" /><Container maxWidth="lg" className="home-content">
+    <BrandLogo className="home-logo" />
+    <Typography variant="overline" color="primary">PLATAFORMA DE ANÁLISIS MONETARIO</Typography>
+    <Typography variant="h2" sx={{ mt: 1 }}>Análisis disponibles</Typography>
+    <Typography color="text.secondary" sx={{ maxWidth: 720, mb: 4 }}>Radares independientes para explorar señales, perfiles y expectativas de política monetaria.</Typography>
+    <Box className="module-grid">{modules.map(module => <Paper className="module-card" key={module.title}>
+      <Stack direction="row" justifyContent="space-between" gap={2} alignItems="flex-start"><Typography variant="h5">{module.title}</Typography><Chip size="small" color={module.available ? "success" : "default"} label={module.status} /></Stack>
+      <Typography color="text.secondary">{module.description}</Typography>
+      <Button variant={module.available ? "contained" : "outlined"} disabled={!module.available} onClick={() => module.path && navigate(module.path)} sx={{ alignSelf: "flex-start", color: module.available ? "#111" : undefined }}>{module.available ? "Abrir análisis" : "Próximamente"}</Button>
+    </Paper>)}</Box>
+    <Typography variant="overline" color="primary" sx={{ display: "block", mt: 6 }}>PRÓXIMAMENTE</Typography>
+    <Box className="upcoming-grid">{["Expectativas", "Inflación", "Consenso de analistas", "Calendario Banxico"].map(title => <Paper className="upcoming-card" key={title}><Typography variant="h6">{title}</Typography><Chip size="small" label="Próximamente" /></Paper>)}</Box>
+  </Container></Box>;
+}
+
+function ExperienceRadar() {
+  const navigate = useNavigate();
   const { data, setData, mode, sourceMode, setSourceMode, selectedBoards, activeTab, setActiveTab, edits, evaluationHash, resetEvaluation } = useRadarStore();
-  const [entered, setEntered] = useState(false);
   const [person, setPerson] = useState<Person | null>(null);
   const [error, setError] = useState("");
   useEffect(() => { loadData().then(setData).catch((e: Error) => setError(e.message)); }, [setData]);
   if (error) return <Container sx={{ py: 10 }}><Typography color="error">{error}</Typography></Container>;
-  if (!data) return <Box className="loading">Cargando Radar BM…</Box>;
-  if (!entered) return <Welcome onEnter={() => setEntered(true)} />;
+  if (!data) return <Box className="loading">Cargando Radar de experiencia…</Box>;
   const meta = modeMeta[mode];
   return <Box>
     <AppBar position="sticky" elevation={0} color="transparent" sx={{ backdropFilter: "blur(14px)", borderBottom: "1px solid #282828" }}>
       <Toolbar sx={{ gap: 2 }}>
-        <Box sx={{ flexGrow: 1 }}><Typography className="brand">RAdarMonetario</Typography><Typography variant="h6">Radar BM</Typography></Box>
+        <IconButton aria-label="Volver al inicio" onClick={() => navigate("/")}><HomeIcon /></IconButton><Box sx={{ flexGrow: 1 }}><BrandLogo className="header-logo" /></Box>
         <Button startIcon={<Download />} onClick={() => exportPdf(data, selectedBoards, mode, sourceMode, edits, evaluationHash)}>Exportar PDF</Button>
       </Toolbar>
     </AppBar>
@@ -62,7 +112,7 @@ export default function App() {
       <Button startIcon={<RestartAlt />} onClick={resetEvaluation}>Restablecer evaluación oficial</Button>
     </Box>
     <Tabs value={activeTab} onChange={(_, v) => setActiveTab(v)} variant="scrollable" className="tabs">
-      <Tab label="Comparador" /><Tab label="Histórico Radar BM" /><Tab label="Experiencia" /><Tab label="Metodología" />
+      <Tab label="Comparador" /><Tab label="Histórico Radar de experiencia" /><Tab label="Experiencia" /><Tab label="Metodología" />
     </Tabs>
     <Container maxWidth={false} sx={{ px: { xs: 1.5, md: 3 }, py: 3 }}>
       {activeTab === 0 && <Comparator onPerson={setPerson} />}
@@ -72,16 +122,6 @@ export default function App() {
     </Container>
     <PersonDrawer person={person} onClose={() => setPerson(null)} />
   </Box>;
-}
-
-function Welcome({ onEnter }: { onEnter: () => void }) {
-  return <Box className="welcome"><Box className="welcome-grid" /><motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }}>
-    <Typography className="brand">RAdarMonetario</Typography>
-    <Typography variant="h1" sx={{ fontSize: { xs: 58, md: 102 }, lineHeight: .9, my: 3 }}>Radar <span>BM</span></Typography>
-    <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 720 }}>Una lectura histórica, comparable y transparente del perfil técnico e institucional de la Junta de Gobierno.</Typography>
-    <Button variant="contained" size="large" onClick={onEnter} sx={{ mt: 5, color: "#111" }}>Explorar las juntas</Button>
-    <Typography variant="body2" color="text.secondary" sx={{ mt: 4, maxWidth: 720 }}>Metodología desarrollada por RAdarMonetario a partir de los criterios publicados por Jonathan Heath. Las reconstrucciones y ampliaciones son responsabilidad exclusiva del Observatorio.</Typography>
-  </motion.div></Box>;
 }
 
 function Comparator({ onPerson }: { onPerson: (p: Person)=>void }) {
@@ -163,7 +203,7 @@ function HistoricalChart({embedded=false}:{embedded?:boolean}) {
   const series=useMemo(()=>data ? data.timeline.map(date=>{const board=nearestBoard(data,date);const evals=board?.members.map(n=>evaluationFor(data,date,n,sourceMode)).filter(Boolean) as Evaluation[]|undefined;const score=average(evals?.map(e=>evaluationTotal(data,date,e,edits))??[]);return {date,label:formatDate(date),score}}) : [],[data,sourceMode,edits]);
   if(!data)return null;
   const color=modeMeta[mode].color;
-  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar BM" subtitle="Haz clic en cualquier punto para seleccionar y resaltar esa Junta."><ResponsiveContainer width="100%" height={embedded?330:470}><LineChart data={series}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter} contentStyle={{background:"#171717",border:`1px solid ${color}`}}/><Line type="monotone" dataKey="score" name="Radar BM" stroke={color} strokeWidth={2.5} dot={({cx,cy,payload})=><g onPointerDown={()=>selectBoard(payload.date)} onClick={()=>selectBoard(payload.date)} style={{cursor:"pointer",pointerEvents:"all"}}><circle cx={cx} cy={cy} r={payload.date===activeBoard?7:2.5} fill={payload.date===activeBoard?"#fff":color} stroke={color} strokeWidth={payload.date===activeBoard?3:0}/><circle cx={cx} cy={cy} r={10} fill="transparent"/></g>} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
+  return <ChartPanel eyebrow="SERIE HISTÓRICA" title="Evolución de Radar de experiencia" subtitle="Haz clic en cualquier punto para seleccionar y resaltar esa Junta."><ResponsiveContainer width="100%" height={embedded?330:470}><LineChart data={series}><CartesianGrid stroke="#262626"/><XAxis dataKey="label" minTickGap={40}/><YAxis domain={[5,10]} tickFormatter={(v:number)=>v.toFixed(1)}/><ChartTooltip formatter={tooltipFormatter} contentStyle={{background:"#171717",border:`1px solid ${color}`}}/><Line type="monotone" dataKey="score" name="Radar de experiencia" stroke={color} strokeWidth={2.5} dot={({cx,cy,payload})=><g onPointerDown={()=>selectBoard(payload.date)} onClick={()=>selectBoard(payload.date)} style={{cursor:"pointer",pointerEvents:"all"}}><circle cx={cx} cy={cy} r={payload.date===activeBoard?7:2.5} fill={payload.date===activeBoard?"#fff":color} stroke={color} strokeWidth={payload.date===activeBoard?3:0}/><circle cx={cx} cy={cy} r={10} fill="transparent"/></g>} activeDot={{r:7}}/></LineChart></ResponsiveContainer></ChartPanel>;
 }
 
 function ExperienceChart() {
@@ -179,10 +219,10 @@ function ExperienceChart() {
 function ChartPanel({eyebrow,title,subtitle,children}:{eyebrow:string;title:string;subtitle:string;children:React.ReactNode}) {return <Paper sx={{p:{xs:2,md:4}}}><Typography variant="overline" color="primary">{eyebrow}</Typography><Typography variant="h3">{title}</Typography><Typography color="text.secondary" sx={{mb:4}}>{subtitle}</Typography>{children}</Paper>}
 
 function Methodology(){const data=useRadarStore(s=>s.data)!;return <Stack spacing={3}>
-  <Box><Typography variant="overline" color="primary">METODOLOGÍA Y TRANSPARENCIA</Typography><Typography variant="h3">Cómo leer Radar BM</Typography></Box>
+  <Box><Typography variant="overline" color="primary">METODOLOGÍA Y TRANSPARENCIA</Typography><Typography variant="h3">Cómo leer Radar de experiencia</Typography></Box>
   <Box className="method-grid">
     <Paper sx={{p:3}}><Typography variant="h5">Metodología original</Typography><Typography color="text.secondary" sx={{mt:1}}>Jonathan Heath, economista y subgobernador del Banco de México, publicó criterios para analizar perfiles de integrantes de la Junta de Gobierno. Su propósito y contexto originales corresponden a esas publicaciones y ejercicios públicos, cuyas calificaciones se preservan en el archivo histórico y en los metadatos de cada evaluación.</Typography><Typography color="text.secondary" sx={{mt:1}}>La propuesta original no fue diseñada como una serie mensual exhaustiva ni como una evaluación oficial del Banco de México; su cobertura depende de la información y de los cortes publicados.</Typography></Paper>
-    <Paper sx={{p:3}}><Typography variant="h5">Adaptación RAdarMonetario</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar BM adapta esos criterios para consultar y comparar históricamente la integración de las Juntas de Gobierno. La reconstrucción temporal, las ampliaciones, las estimaciones y la aplicación retrospectiva son responsabilidad exclusiva del RAdarMonetario y pueden diferir del propósito original de Jonathan Heath.</Typography></Paper>
+    <Paper sx={{p:3}}><Typography variant="h5">Adaptación RAdarMonetario</Typography><Typography color="text.secondary" sx={{mt:1}}>Radar de experiencia adapta esos criterios para consultar y comparar históricamente la integración de las Juntas de Gobierno. La reconstrucción temporal, las ampliaciones, las estimaciones y la aplicación retrospectiva son responsabilidad exclusiva del RAdarMonetario y pueden diferir del propósito original de Jonathan Heath.</Typography></Paper>
     <Paper sx={{p:3}}><Typography variant="h5">Fuentes, supuestos y limitaciones</Typography><Typography color="text.secondary" sx={{mt:1}}>La fuente principal es el libro histórico auditado del RAdarMonetario. Los meses intermedios extienden la última evaluación vigente sólo cuando no existe evidencia de cambio. La disponibilidad de perfiles, fuentes y calificaciones varía por periodo; los valores ausentes no se tratan como cero. Una reconstrucción no sustituye una evaluación publicada y toda incertidumbre debe interpretarse con cautela.</Typography></Paper>
   </Box>
   <Box className="criteria-grid">{data.criteria.map(c=><Paper key={c.id} sx={{p:3}}><Typography color="primary">{String(c.number).padStart(2,"0")}</Typography><Typography variant="h6">{c.name}</Typography><Typography color="text.secondary">{c.definition}</Typography><Chip size="small" label={c.nature} sx={{mt:2}}/></Paper>)}</Box>
