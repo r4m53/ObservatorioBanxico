@@ -1,5 +1,5 @@
 ﻿import { useEffect, useMemo, useState } from "react";
-import { AppBar, Box, Button, Chip, Container, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material";
 import { ArrowBack, ArrowForward, Home as HomeIcon } from "@mui/icons-material";
 import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useNavigate } from "react-router-dom";
@@ -79,21 +79,28 @@ function DecisionsTab({ data }: { data: DecisionsData }) {
 }
 
 function MembersTab({ data }: { data: DecisionsData }) {
-  const eligible = useMemo(()=>data.people.filter(person=>data.participation.some(p=>p.Persona_ID===person.Persona_ID)).sort((a,b)=>a.Nombre.localeCompare(b.Nombre,"es")),[data]);
-  const [personId,setPersonId]=useState(eligible.find(p=>p.Nombre.includes("Jonathan Heath"))?.Persona_ID??eligible[0].Persona_ID);
-  const dates = useMemo(()=>data.participation.filter(p=>p.Persona_ID===personId).map(p=>data.decisions.find(d=>d.Decision_ID===p.Decision_ID)).filter(Boolean) as Decision[],[data,personId]);
-  const [active,setActive]=useState(dates.length-1);
-  useEffect(()=>setActive(dates.length-1),[personId,dates.length]);
-  const decision=dates[Math.max(0,active)]; const person=data.people.find(p=>p.Persona_ID===personId)!;
-  const start=dates[0]?.Fecha_Decision,end=dates[dates.length-1]?.Fecha_Decision;
-  const ownGraph=data.memberGraph.filter(point=>point.Fecha>=start&&point.Fecha<=end).map(point=>{const vote=data.votes.find(v=>v.Decision_ID===point.Decision_ID&&v.Persona_ID===personId);return {...point,Disensos_Hawk:vote?.Tipo_Voto==="Disenso restrictivo"?1:0,Disensos_Dovish:vote?.Tipo_Voto==="Disenso acomodaticio"?1:0}});
-  const until=new Date(`${decision.Fecha_Decision}T00:00:00`); const since=new Date(until);since.setFullYear(since.getFullYear()-1);
-  const dissentVotes=data.votes.filter(v=>v.Persona_ID===personId&&v.Decision_ID&&["Disenso restrictivo","Disenso acomodaticio"].includes(v.Tipo_Voto)).map(v=>({vote:v,decision:data.decisions.find(d=>d.Decision_ID===v.Decision_ID)!})).filter(x=>x.decision&&x.decision.Fecha_Decision<=decision.Fecha_Decision);
+  const eligible = useMemo(() => data.people.filter(person => data.participation.some(p => p.Persona_ID === person.Persona_ID)).sort((a,b) => a.Nombre.localeCompare(b.Nombre, "es")), [data]);
+  const [personId, setPersonId] = useState(eligible.find(p => p.Nombre.includes("Jonathan Heath"))?.Persona_ID ?? eligible[0].Persona_ID);
+  const dates = useMemo(() => (data.participation.filter(p => p.Persona_ID === personId).map(p => data.decisions.find(d => d.Decision_ID === p.Decision_ID)).filter(Boolean) as Decision[]).sort((a,b) => a.Fecha_Decision.localeCompare(b.Fecha_Decision)), [data, personId]);
+  const person = data.people.find(p => p.Persona_ID === personId)!;
+  const start = dates[0].Fecha_Decision;
+  const end = dates[dates.length - 1].Fecha_Decision;
+  const boardGraph = data.graph.filter(point => point.Fecha >= start && point.Fecha <= end);
+  const ownGraph = boardGraph.map(point => {
+    const vote = data.votes.find(v => v.Decision_ID === point.Decision_ID && v.Persona_ID === personId);
+    return { ...point, Disensos_Hawk: vote?.Tipo_Voto === "Disenso restrictivo" ? 1 : 0, Disensos_Dovish: vote?.Tipo_Voto === "Disenso acomodaticio" ? 1 : 0 };
+  });
+  const until = new Date(`${end}T00:00:00`);
+  const since = new Date(until); since.setFullYear(since.getFullYear() - 1);
+  const dissentVotes = data.votes.filter(v => v.Persona_ID === personId && ["Disenso restrictivo", "Disenso acomodaticio"].includes(v.Tipo_Voto)).map(v => ({ vote: v, decision: data.decisions.find(d => d.Decision_ID === v.Decision_ID)! })).filter(item => item.decision && item.decision.Fecha_Decision >= start && item.decision.Fecha_Decision <= end);
   return <Stack spacing={3}>
-    <Paper className="member-selector"><FormControl size="small" sx={{minWidth:280}}><InputLabel>Integrante</InputLabel><Select label="Integrante" value={personId} onChange={e=>setPersonId(e.target.value)}>{eligible.map(p=><MenuItem key={p.Persona_ID} value={p.Persona_ID}>{p.Nombre}</MenuItem>)}</Select></FormControl><Selector title="Fecha activa" value={decision.Fecha_Decision} items={dates.map(d=>({value:d.Fecha_Decision,label:fmtDate(d.Fecha_Decision)}))} onChange={value=>setActive(dates.findIndex(d=>d.Fecha_Decision===value))} onPrevious={()=>setActive(i=>Math.max(0,i-1))} onNext={()=>setActive(i=>Math.min(dates.length-1,i+1))} previousDisabled={active===0} nextDisabled={active===dates.length-1}/><Chip label="La fecha pertenece al historial del integrante seleccionado" variant="outlined"/></Paper>
-    <DecisionChart data={data.memberGraph} activeId={decision.Decision_ID}/>
-    <DecisionChart data={ownGraph} activeId={decision.Decision_ID} member/>
-    <Box className="member-bottom"><Box><SectionTitle>Disensos del integrante hasta la fecha activa</SectionTitle><TableContainer component={Paper}><Table size="small"><TableHead><TableRow><TableCell>Fecha</TableCell><TableCell>Tasa objetivo</TableCell><TableCell>Movimiento (pb)</TableCell><TableCell>Tipo de reunión</TableCell><TableCell>Tipo de disenso</TableCell></TableRow></TableHead><TableBody>{dissentVotes.map(({vote,decision:d})=><TableRow key={d.Decision_ID}><TableCell>{fmtDate(d.Fecha_Decision)}</TableCell><TableCell>{fmtRate(d.Tasa_Nueva)}</TableCell><TableCell>{d.Cambio_pb}</TableCell><TableCell>{d.Tipo_Reunion}</TableCell><TableCell>{vote.Tipo_Voto}</TableCell></TableRow>)}</TableBody></Table></TableContainer></Box><Box><SectionTitle>Resumen estadístico</SectionTitle><MemberStats data={data} person={person} until={until} since={since}/></Box></Box>
+    <Paper className="member-selector">
+      <FormControl size="small" sx={{ minWidth: 280 }}><InputLabel>Integrante</InputLabel><Select label="Integrante" value={personId} onChange={e => setPersonId(e.target.value)}>{eligible.map(p => <MenuItem key={p.Persona_ID} value={p.Persona_ID}>{p.Nombre}</MenuItem>)}</Select></FormControl>
+      <Box className="member-period"><Typography variant="caption" color="text.secondary">Periodo en la Junta</Typography><Typography>{fmtDate(start)} — {fmtDate(end)}</Typography></Box>
+    </Paper>
+    <DecisionChart data={boardGraph} activeId={dates[dates.length - 1].Decision_ID} />
+    <DecisionChart data={ownGraph} activeId={dates[dates.length - 1].Decision_ID} member />
+    <Box className="member-bottom"><Box><SectionTitle>Disensos del integrante durante su periodo en la Junta</SectionTitle><TableContainer component={Paper}><Table size="small"><TableHead><TableRow><TableCell>Fecha</TableCell><TableCell>Tasa objetivo</TableCell><TableCell>Movimiento (pb)</TableCell><TableCell>Tipo de reunión</TableCell><TableCell>Tipo de disenso</TableCell></TableRow></TableHead><TableBody>{dissentVotes.map(({vote,decision:d}) => <TableRow key={d.Decision_ID}><TableCell>{fmtDate(d.Fecha_Decision)}</TableCell><TableCell>{fmtRate(d.Tasa_Nueva)}</TableCell><TableCell>{d.Cambio_pb}</TableCell><TableCell>{d.Tipo_Reunion}</TableCell><TableCell>{vote.Tipo_Voto}</TableCell></TableRow>)}</TableBody></Table></TableContainer></Box><Box><SectionTitle>Resumen estadístico</SectionTitle><MemberStats data={data} person={person} until={until} since={since} /></Box></Box>
   </Stack>;
 }
 
