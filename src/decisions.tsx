@@ -1,7 +1,7 @@
-﻿import { useEffect, useMemo, useState } from "react";
-import { AppBar, Box, Button, Container, FormControl, IconButton, InputLabel, MenuItem, Paper, Select, Stack, Tab, Tabs, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Toolbar, Typography } from "@mui/material";
+﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { AppBar, Box, Button, Chip, Container, Divider, FormControl, FormControlLabel, IconButton, InputLabel, MenuItem, Paper, Radio, RadioGroup, Select, Stack, Tab, Tabs, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableSortLabel, TextField, Toolbar, Typography } from "@mui/material";
 import { ArrowBack, ArrowForward, Home as HomeIcon } from "@mui/icons-material";
-import { Bar, CartesianGrid, ComposedChart, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, ComposedChart, LabelList, Legend, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { useNavigate } from "react-router-dom";
 import { loadDecisionsData, validVote, voteSymbol, type Decision, type DecisionsData, type GraphPoint, type Person, type Vote } from "./decisions-data";
 
@@ -31,7 +31,7 @@ export default function DecisionsRadar() {
     <Container maxWidth={false} sx={{ px: { xs: 1.5, md: 3 }, py: 3 }}>
       {tab === 0 && <DecisionsTab data={data} />}
       {tab === 1 && <MembersTab data={data} />}
-      {tab === 2 && <Paper className="coming-soon"><Typography variant="overline" color="primary">HISTÓRICO DE INTEGRANTES</Typography><Typography variant="h3">Próximamente</Typography></Paper>}
+      {tab === 2 && <HistoricalMembersTab data={data} />}
     </Container>
   </Box>;
 }
@@ -104,6 +104,62 @@ function MembersTab({ data }: { data: DecisionsData }) {
     <Box className="member-bottom"><Box><SectionTitle>Disensos del integrante durante su periodo en la Junta</SectionTitle><TableContainer component={Paper}><Table size="small"><TableHead><TableRow><TableCell>Fecha</TableCell><TableCell>Tasa objetivo</TableCell><TableCell>Movimiento (pb)</TableCell><TableCell>Tipo de reunión</TableCell><TableCell>Tipo de disenso</TableCell></TableRow></TableHead><TableBody>{dissentVotes.map(({vote,decision:d}) => <TableRow key={d.Decision_ID}><TableCell>{fmtDate(d.Fecha_Decision)}</TableCell><TableCell>{fmtRate(d.Tasa_Nueva)}</TableCell><TableCell>{d.Cambio_pb}</TableCell><TableCell>{d.Tipo_Reunion}</TableCell><TableCell>{vote.Tipo_Voto}</TableCell></TableRow>)}</TableBody></Table></TableContainer></Box><Box><SectionTitle>Resumen estadístico</SectionTitle><MemberStats data={data} person={person} until={until} since={since} /></Box></Box>
   </Stack>;
 }
+
+type HistoricalMetric = "dissentRate" | "hawkRate" | "doveRate";
+type HistoricalWindow = "all" | "12m" | "5y" | "10y" | "custom";
+type HistoricalRow = { personId:string; name:string; valid:number; dissent:number; hawk:number; dove:number; dissentRate:number; hawkRate:number; doveRate:number; first:string; last:string };
+type HistoricalSort = keyof Pick<HistoricalRow,"name"|"valid"|"dissent"|"hawk"|"dove"|"dissentRate"|"hawkRate"|"doveRate"|"first"|"last">;
+
+const metricLabels: Record<HistoricalMetric,string> = { dissentRate:"% Disensos totales", hawkRate:"% Disensos restrictivos", doveRate:"% Disensos expansivos" };
+const windowLabels: Record<HistoricalWindow,string> = { all:"Toda la historia", "12m":"Últimos 12 meses", "5y":"Últimos 5 años", "10y":"Últimos 10 años", custom:"Periodo personalizado" };
+
+function HistoricalMembersTab({ data }: { data: DecisionsData }) {
+  const latest = data.decisions.reduce((max,item)=>item.Fecha_Decision>max?item.Fecha_Decision:max, data.decisions[0].Fecha_Decision);
+  const earliest = data.decisions.reduce((min,item)=>item.Fecha_Decision<min?item.Fecha_Decision:min, data.decisions[0].Fecha_Decision);
+  const [metric,setMetric]=useState<HistoricalMetric>("dissentRate");
+  const [window,setWindow]=useState<HistoricalWindow>("all");
+  const [order,setOrder]=useState<"desc"|"asc">("desc");
+  const [customStart,setCustomStart]=useState(earliest);
+  const [customEnd,setCustomEnd]=useState(latest);
+  const [selectedId,setSelectedId]=useState<string|null>(null);
+  const [tableSort,setTableSort]=useState<HistoricalSort>("dissentRate");
+  const [tableDirection,setTableDirection]=useState<"desc"|"asc">("desc");
+  const rowRefs=useRef<Record<string,HTMLTableRowElement|null>>({});
+  const range=useMemo(()=>{
+    if(window==="all")return {start:earliest,end:latest};
+    if(window==="custom")return {start:customStart,end:customEnd};
+    const end=new Date(`${latest}T00:00:00`);const start=new Date(end);
+    if(window==="12m")start.setFullYear(start.getFullYear()-1);
+    if(window==="5y")start.setFullYear(start.getFullYear()-5);
+    if(window==="10y")start.setFullYear(start.getFullYear()-10);
+    return {start:start.toISOString().slice(0,10),end:latest};
+  },[window,customStart,customEnd,earliest,latest]);
+  const rows=useMemo(()=>data.people.map(person=>{
+    const votes=data.votes.filter(v=>v.Persona_ID===person.Persona_ID&&validVote(v)).map(v=>({vote:v,decision:data.decisions.find(d=>d.Decision_ID===v.Decision_ID)})).filter(item=>item.decision&&item.decision.Fecha_Decision>=range.start&&item.decision.Fecha_Decision<=range.end);
+    if(!votes.length)return null;
+    const hawk=votes.filter(item=>item.vote.Tipo_Voto==="Disenso restrictivo").length;
+    const dove=votes.filter(item=>item.vote.Tipo_Voto==="Disenso acomodaticio").length;
+    const dates=votes.map(item=>item.decision!.Fecha_Decision).sort();
+    return {personId:person.Persona_ID,name:person.Nombre,valid:votes.length,dissent:hawk+dove,hawk,dove,dissentRate:(hawk+dove)/votes.length,hawkRate:hawk/votes.length,doveRate:dove/votes.length,first:dates[0],last:dates[dates.length-1]};
+  }).filter(Boolean) as HistoricalRow[],[data,range]);
+  const ranked=useMemo(()=>[...rows].sort((a,b)=>(a[metric]-b[metric])*(order==="desc"?-1:1)||a.name.localeCompare(b.name,"es")),[rows,metric,order]);
+  const tableRows=useMemo(()=>[...rows].sort((a,b)=>{const av=a[tableSort],bv=b[tableSort];const cmp=typeof av==="number"?(av as number)-(bv as number):String(av).localeCompare(String(bv),"es");return cmp?(cmp*(tableDirection==="desc"?-1:1)):a.name.localeCompare(b.name,"es")}),[rows,tableSort,tableDirection]);
+  useEffect(()=>{if(selectedId)rowRefs.current[selectedId]?.scrollIntoView({behavior:"smooth",block:"center"})},[selectedId]);
+  const sortBy=(field:HistoricalSort)=>{if(tableSort===field)setTableDirection(d=>d==="asc"?"desc":"asc");else{setTableSort(field);setTableDirection(field==="name"||field==="first"||field==="last"?"asc":"desc")}};
+  const period=`${fmtDate(range.start)} — ${fmtDate(range.end)}`;
+  const header=(label:string,field:HistoricalSort)=><TableSortLabel active={tableSort===field} direction={tableSort===field?tableDirection:"asc"} onClick={()=>sortBy(field)}>{label}</TableSortLabel>;
+  return <Stack spacing={3}>
+    <Paper className="history-filters"><Box><Typography variant="overline" color="primary">MÉTRICA</Typography><RadioGroup value={metric} onChange={e=>{const value=e.target.value as HistoricalMetric;setMetric(value);setTableSort(value);setTableDirection(order)}}>{Object.entries(metricLabels).map(([value,label])=><FormControlLabel key={value} value={value} control={<Radio size="small"/>} label={label}/>)}</RadioGroup></Box>
+      <Box><Typography variant="overline" color="primary">VENTANA TEMPORAL</Typography><FormControl size="small" fullWidth><Select value={window} onChange={e=>setWindow(e.target.value as HistoricalWindow)}>{Object.entries(windowLabels).map(([value,label])=><MenuItem key={value} value={value}>{label}</MenuItem>)}</Select></FormControl>{window==="custom"&&<Stack direction={{xs:"column",sm:"row"}} gap={1} mt={1}><TextField size="small" label="Fecha inicial" type="date" value={customStart} onChange={e=>setCustomStart(e.target.value)} InputLabelProps={{shrink:true}} inputProps={{max:customEnd}}/><TextField size="small" label="Fecha final" type="date" value={customEnd} onChange={e=>setCustomEnd(e.target.value)} InputLabelProps={{shrink:true}} inputProps={{min:customStart,max:latest}}/></Stack>}</Box>
+      <Box><Typography variant="overline" color="primary">ORDEN</Typography><RadioGroup value={order} onChange={e=>{const value=e.target.value as "asc"|"desc";setOrder(value);setTableSort(metric);setTableDirection(value)}}><FormControlLabel value="desc" control={<Radio size="small"/>} label="Mayor a menor"/><FormControlLabel value="asc" control={<Radio size="small"/>} label="Menor a mayor"/></RadioGroup></Box></Paper>
+    <Paper className="history-ranking"><Stack direction={{xs:"column",sm:"row"}} justifyContent="space-between" gap={1}><Box><Typography variant="overline" color="primary">RANKING HISTÓRICO</Typography><Typography variant="h4">{metricLabels[metric]}</Typography></Box><Chip label={period} variant="outlined"/></Stack>
+      <ResponsiveContainer width="100%" height={Math.max(360,ranked.length*34+50)}><BarChart data={ranked} layout="vertical" margin={{top:18,right:72,bottom:10,left:30}}><CartesianGrid stroke="#262626" horizontal={false}/><XAxis type="number" domain={[0,1]} tickFormatter={(v:number)=>pct(v)}/><YAxis type="category" dataKey="name" width={205} tick={{fontSize:11}}/><Tooltip content={<HistoryTooltip metric={metric} period={period}/>}/><Bar dataKey={metric} name={metricLabels[metric]} minPointSize={2} onClick={(entry)=>setSelectedId((entry as unknown as {payload:HistoricalRow}).payload.personId)} isAnimationActive={false}>{ranked.map(row=><Cell key={row.personId} fill={row.personId===selectedId?"#fff":"#f28c28"} stroke={row.personId===selectedId?"#f28c28":"none"} strokeWidth={2}/>)}<LabelList dataKey={metric} position="right" formatter={(value:unknown)=>pct(Number(value))} fill="#f4f4f4" fontSize={11}/></Bar></BarChart></ResponsiveContainer>
+    </Paper>
+    <SectionTitle>Tabla completa</SectionTitle><TableContainer component={Paper} className="history-table"><Table size="small" stickyHeader><TableHead><TableRow><TableCell>{header("Integrante","name")}</TableCell><TableCell>{header("Votos válidos","valid")}</TableCell><TableCell>{header("Disensos","dissent")}</TableCell><TableCell>{header("Restrictivos","hawk")}</TableCell><TableCell>{header("Expansivos","dove")}</TableCell><TableCell>{header("% Disensos","dissentRate")}</TableCell><TableCell>{header("% Restrictivos","hawkRate")}</TableCell><TableCell>{header("% Expansivos","doveRate")}</TableCell><TableCell>{header("Primera participación","first")}</TableCell><TableCell>{header("Última participación","last")}</TableCell></TableRow></TableHead><TableBody>{tableRows.map(row=><TableRow key={row.personId} ref={node=>{rowRefs.current[row.personId]=node}} hover selected={row.personId===selectedId} onClick={()=>setSelectedId(row.personId)} className="history-row"><TableCell>{row.name}</TableCell><TableCell>{row.valid}</TableCell><TableCell>{row.dissent}</TableCell><TableCell>{row.hawk}</TableCell><TableCell>{row.dove}</TableCell><TableCell>{pct(row.dissentRate)}</TableCell><TableCell>{pct(row.hawkRate)}</TableCell><TableCell>{pct(row.doveRate)}</TableCell><TableCell>{fmtDate(row.first)}</TableCell><TableCell>{fmtDate(row.last)}</TableCell></TableRow>)}</TableBody></Table></TableContainer>
+  </Stack>;
+}
+
+function HistoryTooltip({active,payload,metric,period}:{active?:boolean;payload?:Array<{payload:HistoricalRow}>;metric:HistoricalMetric;period:string}){if(!active||!payload?.[0])return null;const row=payload[0].payload;return <Paper className="history-tooltip"><Typography fontWeight={800}>{row.name}</Typography><Typography variant="caption" color="text.secondary">{period}</Typography><Divider sx={{my:1}}/><Typography>Votos válidos: {row.valid}</Typography><Typography>Disensos: {row.dissent}</Typography><Typography>Restrictivos: {row.hawk} ({pct(row.hawkRate)})</Typography><Typography>Expansivos: {row.dove} ({pct(row.doveRate)})</Typography><Typography color="primary">{metricLabels[metric]}: {pct(row[metric])}</Typography></Paper>}
 
 function Selector({title,value,items,onChange,onPrevious,onNext,previousDisabled,nextDisabled}:{title:string;value:string;items:{value:string;label:string}[];onChange:(v:string)=>void;onPrevious:()=>void;onNext:()=>void;previousDisabled:boolean;nextDisabled:boolean}) {return <Paper className="decision-selector"><FormControl size="small" sx={{minWidth:230}}><InputLabel>{title}</InputLabel><Select label={title} value={value} onChange={e=>onChange(e.target.value)}>{items.map(item=><MenuItem key={item.value} value={item.value}>{item.label}</MenuItem>)}</Select></FormControl><Button startIcon={<ArrowBack/>} onClick={onPrevious} disabled={previousDisabled}>Anterior</Button><Button endIcon={<ArrowForward/>} onClick={onNext} disabled={nextDisabled}>Siguiente</Button></Paper>}
 function SectionTitle({children}:{children:React.ReactNode}){return <Typography className="decision-section-title">{children}</Typography>}
