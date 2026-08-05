@@ -130,7 +130,7 @@ def main():
     aliases={"Jonathan Heath Constable":"Jonathan Heath Constable","José Gabriel Cuadra García":"José Gabriel Cuadra García"}
     career=defaultdict(list)
     for r in rows(wb["Career_History"]):
-        career[r["Persona"]].append({"institution":r["Institución"],"role":r["Cargo"],"start":iso(r["Fecha inicio"]),"end":iso(r["Fecha fin"]),"description":r["Descripción breve de funciones"] or "","source":r["Fuente principal"] or "","url":r["URL"] or ""})
+        career[r["Persona"]].append({"institution":r["Institución"],"role":r["Cargo"],"start":iso(r["Fecha inicio"]),"end":iso(r["Fecha fin"]),"description":r["Descripción breve de funciones"] or "","source":r["Fuente principal"] or "","url":r["URL"] or "","countTotal":bool(r["Cuenta_Total"]),"countMonetary":bool(r["Cuenta_Monetaria"]),"countFiscal":bool(r["Cuenta_Fiscal"])})
     profiles={r["Persona"]:r for r in rows(wb["Board_Profile"])}
     people=[]
     for pid,r in people_raw.items():

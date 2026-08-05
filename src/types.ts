@@ -44,6 +44,9 @@ export type CareerEntry = {
   description: string;
   source: string;
   url: string;
+  countTotal?: boolean;
+  countMonetary?: boolean;
+  countFiscal?: boolean;
 };
 
 export type Evaluation = {

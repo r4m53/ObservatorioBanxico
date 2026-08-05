@@ -489,7 +489,10 @@
           "end": "1955-12-31",
           "description": "Actividad bancaria profesional.",
           "source": "Semblanza Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Comisión de Inversiones Públicas",
@@ -498,7 +501,10 @@
           "end": "1958-06-30",
           "description": "Análisis de inversión pública.",
           "source": "Semblanza Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -507,7 +513,10 @@
           "end": "1982-03-16",
           "description": "Banca central, asuntos internacionales y fomento de exportaciones.",
           "source": "Semblanza Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -516,7 +525,10 @@
           "end": "1997-12-31",
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/seminarios/la-importancia-de-la-autonomia-de-la-banca-central/%7B8835AAD9-61E3-2882-6FC1-D1227C7F2505%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -580,7 +592,10 @@
           "end": "1993-12-31",
           "description": "Economía monetaria, balanza de pagos y organismos financieros internacionales.",
           "source": "Banxico, historia institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -589,7 +604,10 @@
           "end": "1996-12-31",
           "description": "Integrante de la Junta; política monetaria y banca central.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -653,7 +671,10 @@
           "end": "1993-12-31",
           "description": "Investigación económica, política tributaria y hacendaria.",
           "source": "Banxico / trayectoria pública",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -662,7 +683,10 @@
           "end": "1997-12-31",
           "description": "Integrante de la Junta; decisiones monetarias.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -742,7 +766,10 @@
           "end": "1994-12-31",
           "description": "Dirección empresarial y financiera.",
           "source": "Banxico / trayectoria pública",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -751,7 +778,10 @@
           "end": "2010-12-31",
           "description": "Integrante de la Junta; política monetaria, sistemas de pagos y estabilidad financiera.",
           "source": "Informes anuales Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B04840DAE-89CE-942C-ADC0-7F8D6DD0971D%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -799,7 +829,10 @@
           "end": "1993-12-31",
           "description": "Funciones técnicas, financieras y de banca central.",
           "source": "Banxico / archivos institucionales",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -808,7 +841,10 @@
           "end": "2006-12-18",
           "description": "Integrante de la Junta; decisiones monetarias.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -872,7 +908,10 @@
           "end": "1996-12-31",
           "description": "Mercados, deuda pública, análisis macroeconómico y banca central.",
           "source": "Banxico, publicaciones institucionales",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -881,7 +920,10 @@
           "end": "2012-12-31",
           "description": "Integrante de la Junta; política monetaria y mercados financieros.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -961,7 +1003,10 @@
           "end": "1991-12-31",
           "description": "Análisis económico y financiero.",
           "source": "Semblanza institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Grupo Financiero Bancomer",
@@ -970,7 +1015,10 @@
           "end": "1998-01-27",
           "description": "Análisis macroeconómico y financiero.",
           "source": "Semblanza institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -979,7 +1027,10 @@
           "end": "2008-12-31",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1059,7 +1110,10 @@
           "end": "1988-11-30",
           "description": "Análisis macroeconómico, finanzas públicas y banca central.",
           "source": "Banxico / trayectoria pública",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": true
         },
         {
           "institution": "SHCP",
@@ -1068,7 +1122,10 @@
           "end": "1994-11-30",
           "description": "Política fiscal, deuda y coordinación hacendaria.",
           "source": "Trayectoria pública",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "SHCP",
@@ -1077,7 +1134,10 @@
           "end": "1997-12-31",
           "description": "Conducción de política fiscal, ingresos, gasto y deuda.",
           "source": "Trayectoria pública",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -1086,7 +1146,10 @@
           "end": "2009-12-31",
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/informes-anuales/%7B290408FB-1C3D-7FCF-F161-CBAC9DC88828%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1166,7 +1229,10 @@
           "end": "1994-12-31",
           "description": "Regulación financiera y disposiciones de banca central.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banamex",
@@ -1175,7 +1241,10 @@
           "end": "1997-12-31",
           "description": "Dirección bancaria.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Scotiabank Inverlat y academia",
@@ -1184,7 +1253,10 @@
           "end": "2006-12-02",
           "description": "Gobierno corporativo, riesgos, auditoría y docencia jurídica.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "CNBV",
@@ -1193,7 +1265,10 @@
           "end": "2007-07-03",
           "description": "Autoridad y supervisión financiera.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1202,7 +1277,10 @@
           "end": "2018-11-30",
           "description": "Integrante de la Junta; política monetaria y estabilidad financiera.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B97DB4DA5-C78A-EBC9-D73D-50798B6E8121%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1250,7 +1328,10 @@
           "end": "1992-12-31",
           "description": "Análisis económico, investigación y consultoría.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Grupo Financiero BBVA Bancomer",
@@ -1259,7 +1340,10 @@
           "end": "2009-05-26",
           "description": "Análisis macroeconómico y financiero.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1268,7 +1352,10 @@
           "end": "2016-12-31",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Comunicado Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/miscelaneos/%7B006B3357-C58B-9E59-97B0-92C0C73125D6%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1364,7 +1451,10 @@
           "end": "1999-06-30",
           "description": "Banca central, investigación monetaria y macroeconomía.",
           "source": "Banxico / BIS",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "FMI",
@@ -1373,7 +1463,10 @@
           "end": "2000-12-31",
           "description": "Política macroeconómica y financiera internacional.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "SHCP",
@@ -1382,7 +1475,10 @@
           "end": "2003-07-31",
           "description": "Política fiscal, deuda y coordinación macroeconómica.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "FMI",
@@ -1391,7 +1487,10 @@
           "end": "2006-11-30",
           "description": "Política macroeconómica, monetaria y financiera internacional.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "SHCP",
@@ -1400,7 +1499,10 @@
           "end": "2009-12-31",
           "description": "Conducción de política fiscal, presupuesto, ingresos y deuda.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -1409,7 +1511,10 @@
           "end": "2017-11-30",
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1489,7 +1594,10 @@
           "end": "2010-12-31",
           "description": "Investigación monetaria, inflación y análisis macroeconómico.",
           "source": "Informes Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1498,7 +1606,10 @@
           "end": "2018-12-31",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1562,7 +1673,10 @@
           "end": "2012-12-31",
           "description": "Banca central, investigación económica y asuntos internacionales.",
           "source": "Banxico / BIS",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1571,7 +1685,10 @@
           "end": "2020-12-31",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1651,7 +1768,10 @@
           "end": "2011-11-30",
           "description": "Mercados financieros, análisis macroeconómico y banca central.",
           "source": "Banxico / trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "SHCP",
@@ -1660,7 +1780,10 @@
           "end": "2015-12-31",
           "description": "Deuda pública y crédito público.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Bancomext",
@@ -1669,7 +1792,10 @@
           "end": "2016-12-31",
           "description": "Banca de desarrollo y financiamiento al comercio exterior.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1678,7 +1804,10 @@
           "end": "2021-12-31",
           "description": "Integrante y dirección de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1742,7 +1871,10 @@
           "end": "2000-12-31",
           "description": "Análisis económico, regulación y finanzas.",
           "source": "Trayectoria institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "SHCP",
@@ -1751,7 +1883,10 @@
           "end": "2017-12-31",
           "description": "Tesorería, ingresos, gasto, deuda y gestión financiera pública.",
           "source": "Senado / SHCP",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -1760,7 +1895,10 @@
           "end": "2025-02-04",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1824,7 +1962,10 @@
           "end": "2018-11-30",
           "description": "Investigación macroeconómica, desarrollo y política pública.",
           "source": "Trayectoria académica institucional",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": false
         },
         {
           "institution": "SHCP",
@@ -1833,7 +1974,10 @@
           "end": "2018-12-31",
           "description": "Presupuesto y gasto público.",
           "source": "SHCP / Senado",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -1842,7 +1986,10 @@
           "end": "2022-12-31",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf"
+          "url": "https://www.banxico.org.mx/publicaciones-y-prensa/presentaciones/%7B4D2BDAC2-AEDE-407E-9925-17C90DB7ABC1%7D.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -1922,7 +2069,10 @@
           "end": "1983-12-31",
           "description": "Análisis macroeconómico, pronósticos, inflación e indicadores.",
           "source": "Banxico / Senado",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Grupo Macro Asesor",
@@ -1931,7 +2081,10 @@
           "end": "2003-12-31",
           "description": "Análisis macroeconómico de México, pronósticos, inflación y coyuntura.",
           "source": "Banxico / Senado",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "HSBC México",
@@ -1940,7 +2093,10 @@
           "end": "2010-12-31",
           "description": "Análisis macroeconómico, inflación, tasas, mercados y pronósticos.",
           "source": "Banxico / Senado",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Consultoría, docencia y análisis económico",
@@ -1949,7 +2105,10 @@
           "end": "2018-12-31",
           "description": "Análisis de indicadores, coyuntura macroeconómica, inflación y política económica.",
           "source": "Banxico / Senado",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -1958,7 +2117,10 @@
           "end": "2026-06-30",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -2038,7 +2200,10 @@
           "end": "2007-12-31",
           "description": "Sistemas financieros, concentración y control de fondos públicos.",
           "source": "Dictamen del Senado",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Tesorería de la Federación, SHCP",
@@ -2047,7 +2212,10 @@
           "end": "2020-12-31",
           "description": "Ingresos, tesorería, fondos y gestión financiera federal.",
           "source": "Dictamen del Senado",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/64/3/2020-12-09-1/assets/documentos/Dict_Hacienda_Consejero_Banxico.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -2056,7 +2224,10 @@
           "end": "2026-06-30",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico",
-          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html"
+          "url": "https://www.banxico.org.mx/conociendo-banxico/junta-gobierno-curriculo-banc.html",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -2136,7 +2307,10 @@
           "end": "2018-11-30",
           "description": "Presupuesto, deuda y administración financiera local.",
           "source": "Senado",
-          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-"
+          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "SHCP",
@@ -2145,7 +2319,10 @@
           "end": "2021-12-31",
           "description": "Proyecto de presupuesto federal, gasto y evaluación presupuestaria.",
           "source": "Senado",
-          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-"
+          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -2154,7 +2331,10 @@
           "end": "2026-06-30",
           "description": "Dirección del banco central y decisiones monetarias.",
           "source": "Banxico / Senado",
-          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-"
+          "url": "https://comunicacionsocial.senado.gob.mx/informacion/prensa/5780-version-estenografica-de-la-comparecencia-de-",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -2218,7 +2398,10 @@
           "end": "2018-11-30",
           "description": "Infraestructura, vivienda, planeación y administración financiera.",
           "source": "Dictamen legislativo",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Tesorería de la Federación, SHCP",
@@ -2227,7 +2410,10 @@
           "end": "2021-06-30",
           "description": "Operación de tesorería y finanzas públicas.",
           "source": "Dictamen legislativo",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf",
+          "countTotal": true,
+          "countMonetary": false,
+          "countFiscal": true
         },
         {
           "institution": "Banco de México",
@@ -2236,7 +2422,10 @@
           "end": "2023-01-17",
           "description": "Investigación sobre inflación y política monetaria.",
           "source": "Dictamen legislativo",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -2245,7 +2434,10 @@
           "end": "2026-06-30",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Banxico / Congreso",
-          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf"
+          "url": "https://infosen.senado.gob.mx/sgsp/gaceta/65/2/2023-01-18-1/assets/documentos/Dic_3ra_Junta_Gobierno_Banco_Mexico_20230118.pdf",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
@@ -2293,7 +2485,10 @@
           "end": "2025-02-04",
           "description": "Investigación monetaria, inflación, pronósticos y análisis macroeconómico.",
           "source": "Senado / Banxico",
-          "url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados/10820-avanza-para-ratificar-a-jose-cuadra-garcia-como-miembro-de-la-junta-de-gobierno-del-banco-de-mexico"
+          "url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados/10820-avanza-para-ratificar-a-jose-cuadra-garcia-como-miembro-de-la-junta-de-gobierno-del-banco-de-mexico",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         },
         {
           "institution": "Banco de México",
@@ -2302,7 +2497,10 @@
           "end": "2026-06-30",
           "description": "Integrante de la Junta; política monetaria.",
           "source": "Senado",
-          "url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados?created=2023-03-01&start=1910"
+          "url": "https://comunicacionsocial.senado.gob.mx/informacion/comunicados?created=2023-03-01&start=1910",
+          "countTotal": true,
+          "countMonetary": true,
+          "countFiscal": false
         }
       ],
       "academic": [
